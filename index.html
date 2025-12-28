@@ -698,6 +698,73 @@
       animation: smokeDriftSlow 14s ease-in-out infinite;
     }
 
+
+    /* Initiation Path */
+    .init-grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 920px){ .init-grid{ grid-template-columns: 1fr; } }
+
+    .init-card{
+      border:1px solid rgba(42,36,26,.95);
+      border-radius:14px;
+      background: rgba(0,0,0,.20);
+      padding:14px 14px 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .init-card::before{
+      content:"";
+      position:absolute;
+      inset:-60px -60px auto auto;
+      width:260px;
+      height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(184,156,89,.10), transparent 64%);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .init-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    .init-title{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .init-body{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      position:relative;
+      z-index:1;
+    }
+    .init-list{
+      margin:12px 0 0;
+      padding-left:18px;
+      color:#a79a82;
+      font-size:12.5px;
+      position:relative;
+      z-index:1;
+    }
+    .init-list li{ margin:6px 0; }
+
+
+    /* Inner Chamber dot */
+    #innerDot:hover{ opacity:.65; background:rgba(179,18,55,.28); }
+    #innerDot:focus{ outline:2px solid rgba(184,156,89,.55); outline-offset:4px; }
+
+    /* Slightly stronger secondary button readability */
+    .btn.secondary{ background: rgba(0,0,0,.14); }
+    .btn.secondary:hover{ background:#19140d; }
 </style>
 </head>
 
@@ -716,6 +783,7 @@
         <a href="#chamber">Red Chamber</a>
         <a href="#vault">Vault</a>
         <a href="#sanctum">Sanctum</a>
+        <a href="#initiation">Initiation</a>
         <a href="#signals">Signals</a>
         <a href="#gallery">Gallery</a>
         <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
@@ -883,6 +951,25 @@
       </div>
     </section>
 
+    
+    <section class="panel" id="covenant" style="margin-top:16px;">
+      <h2>The Covenant</h2>
+      <p>This is not a brand promise. It’s a standard.</p>
+
+      <p style="color:var(--muted); font-size:14px;">
+        I move with intention. I do not perform urgency.<br/>
+        I choose what chooses me.<br/>
+        I keep my power quiet until it’s irreversible.
+      </p>
+
+      <p style="color:var(--muted); font-size:14px;">
+        If you’re here, you already understand that alignment is a decision, not a feeling.
+      </p>
+
+      <p class="fine">Nothing here needs your agreement. Only your consent.</p>
+    </section>
+
+
     <section class="panel" id="gallery" style="margin-top:16px;">
       <h2>Gallery</h2>
       <p>Click any image to open it.</p>
@@ -933,7 +1020,8 @@
         </a>
       </div>
 
-    </footer>
+      <a id="innerDot" href="inner-chamber.html" style="display:inline-block; width:8px; height:8px; border-radius:999px; background:rgba(184,156,89,.18); margin-top:12px; opacity:.25;" aria-label="Inner Chamber"></a>
+</footer>
   </div>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">

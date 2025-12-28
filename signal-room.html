@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Room · Your Jaded Secrets</title>
+  <style>
+    :root{
+      --bg:#060606;
+      --panel:rgba(0,0,0,.65);
+      --ink:#e4dcc3;
+      --muted:#bfb396;
+      --gold:#b89c59;
+      --red:#6b0f1a;
+      --line:#2a241a;
+      --radius:16px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(107,15,26,.18), transparent 60%),
+        radial-gradient(820px 560px at 80% 70%, rgba(184,156,89,.10), transparent 62%),
+        var(--bg);
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .wrap{max-width:900px;width:100%;}
+    .card{
+      border:1px solid var(--gold);
+      border-radius:var(--radius);
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+    .kicker{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size:36px;
+      line-height:1.1;
+    }
+    p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .signal{
+      border:1px solid rgba(42,36,26,.9);
+      border-radius:14px;
+      padding:14px;
+      margin-bottom:12px;
+      background:rgba(0,0,0,.25);
+    }
+    .signal strong{
+      display:block;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin-bottom:6px;
+      color:var(--ink);
+    }
+    .fine{
+      font-size:12px;
+      color:#9b9078;
+      margin-top:14px;
+    }
+    a{
+      color:var(--ink);
+      border-bottom:1px solid rgba(184,156,89,.3);
+      text-decoration:none;
+    }
+    a:hover{border-bottom-color:var(--gold);}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="kicker">Signals only · no announcements</div>
+      <h1>The Signal Room</h1>
+      <p>
+        This room broadcasts without asking for attention. If you’re here,
+        something is either about to open or already has.
+      </p>
+
+      <div class="signal">
+        <strong>Signal 001</strong>
+        <p>The first physical object is being tested. Materials matter.</p>
+      </div>
+
+      <div class="signal">
+        <strong>Signal 002</strong>
+        <p>Midnight unlocks do not repeat.</p>
+      </div>
+
+      <div class="signal">
+        <strong>Signal 003</strong>
+        <p>Registry is open. Quietly.</p>
+      </div>
+
+      <div class="signal">
+        <strong>Signal 004</strong>
+        <p>The Vault opens at midnight.</p>
+      </div>
+
+      <div class="fine">
+        <a href="inner-altar.html">Return to the Altar</a> ·
+        <a href="registry.html">Registry</a> ·
+        <a href="ledger.html">Ledger</a> ·
+        <a href="vault.html">Vault</a> ·
+        <a href="index.html">Back to YJS</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

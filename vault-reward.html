@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vault Reward · Your Jaded Secrets</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(0,0,0,.66);
+      --ink:#e4dcc3;
+      --muted:#bfb396;
+      --gold:#b89c59;
+      --red:#7b0f1f;
+      --line:#2a241a;
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 18px;
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      background:
+        radial-gradient(900px 620px at 18% 12%, rgba(123,15,31,.22), transparent 60%),
+        radial-gradient(820px 560px at 82% 70%, rgba(184,156,89,.14), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+        var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ width:100%; max-width:980px; }
+    .card{
+      border:1px solid var(--gold);
+      border-radius:var(--radius);
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .top{
+      padding:18px 18px 14px;
+      border-bottom:1px solid rgba(42,36,26,.9);
+      background:
+        radial-gradient(560px 360px at 18% 20%, rgba(179,18,55,.18), transparent 62%),
+        radial-gradient(520px 320px at 82% 35%, rgba(184,156,89,.10), transparent 64%),
+        rgba(0,0,0,.20);
+    }
+    .kicker{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    h1{ margin:0 0 10px; font-size:40px; line-height:1.05; }
+    .lead{ margin:0; color:var(--muted); font-size:14.5px; max-width:860px; }
+    .body{ padding:18px; }
+
+    .rule{
+      border:1px solid rgba(42,36,26,.9);
+      border-radius:14px;
+      padding:14px;
+      background:rgba(0,0,0,.22);
+      margin-bottom:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .rule strong{
+      display:block;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin-bottom:8px;
+      color:var(--ink);
+    }
+    .rule p{ margin:0; color:var(--muted); font-size:14px; }
+
+    .sigil{
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#d8c9a6;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(184,156,89,.35);
+      background: rgba(0,0,0,.18);
+      display:inline-block;
+    }
+
+    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-block;
+    }
+    .btn:hover{ background:var(--gold); color:#0b0b0b; }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+      background: rgba(0,0,0,.14);
+    }
+    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
+
+    .fine{
+      margin-top:12px;
+      font-size:12px;
+      color:#9b9078;
+      letter-spacing:.06em;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color:#d8c9a6;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <p class="kicker">Sealed · keep it quiet</p>
+        <h1>Vault Reward</h1>
+        <p class="lead">You passed the door. Don’t make it cheap.</p>
+      </div>
+
+      <div class="body">
+        <div class="rule">
+          <strong>Your Vault Sigil</strong>
+          <p><span class="sigil" id="sigil">checking…</span></p>
+        </div>
+
+        <div class="rule">
+          <strong>Your Gift</strong>
+          <p>
+            This is a placeholder file for now. Replace it later with the real locked drop.<br/>
+            <span class="fine">File location: <code>drops/vault-gift.txt</code></span>
+          </p>
+          <div class="btnrow">
+            <a class="btn" href="drops/vault-gift.txt" download>Claim Gift</a>
+            <a class="btn secondary" href="inner-altar.html">Return to the Altar</a>
+            <a class="btn secondary" href="signal-room.html">Signal Room</a>
+          </div>
+        </div>
+
+        <div class="rule">
+          <strong>Ritual Script</strong>
+          <p>
+            1) Light something. Candle or perfume. No chaos, just heat.<br/>
+            2) Name one desire. Name one standard. Write both down.<br/>
+            3) Make one decision that protects your future.<br/>
+            4) Close the door. Keep your power quiet until it’s irreversible.
+          </p>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn secondary" id="resetBtn" type="button">Reset Vault (this device)</button>
+          <a class="btn secondary" href="vault.html">Back to Vault</a>
+          <a class="btn secondary" href="index.html">Back to YJS</a>
+        </div>
+
+        <div class="fine">If you share the door, you lose the door.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const VAULT_KEY = "yjsVaultSigil";
+    const VAULT_TIER = "yjsVaultTier";
+    const sigilEl = document.getElementById("sigil");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function normalize(v){ return (v || "").trim(); }
+
+    function init(){
+      const sigil = normalize(localStorage.getItem(VAULT_KEY));
+      const tier = normalize(localStorage.getItem(VAULT_TIER));
+      if(!sigil){
+        // No sigil? No reward. Ceremony matters.
+        window.location.href = "vault.html";
+        return;
+      }
+      sigilEl.textContent = sigil + (tier ? (" · " + tier.toUpperCase()) : "");
+    }
+
+    resetBtn.addEventListener("click", () => {
+      try{
+        localStorage.removeItem(VAULT_KEY);
+        localStorage.removeItem(VAULT_TIER);
+      }catch(e){}
+      window.location.href = "vault.html";
+    });
+
+    init();
+  </script>
+</body>
+</html>
