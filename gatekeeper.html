@@ -7,7 +7,6 @@
   <style>
     :root{
       --bg:#050505;
-      --panel:rgba(0,0,0,.66);
       --ink:#e4dcc3;
       --muted:#bfb396;
       --gold:#b89c59;
@@ -15,46 +14,32 @@
       --line:#2a241a;
       --radius:18px;
       --shadow:0 18px 60px rgba(0,0,0,.55);
+      --max:1120px;
     }
     *{box-sizing:border-box;}
     body{
-      margin:0;
-      min-height:100vh;
-      padding:24px 18px 60px;
-      color:var(--ink);
-      font-family:"Playfair Display", serif;
+      margin:0; min-height:100vh; padding:24px 18px 60px;
+      color:var(--ink); font-family:"Playfair Display", serif;
       background:
         radial-gradient(950px 640px at 18% 12%, rgba(123,15,31,.24), transparent 60%),
         radial-gradient(820px 560px at 82% 70%, rgba(184,156,89,.14), transparent 62%),
         linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
         var(--bg);
     }
-    a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(184,156,89,.28); }
-    a:hover{ border-bottom-color:var(--gold); }
-    .wrap{ max-width:1120px; margin:0 auto; }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:var(--max); margin:0 auto; }
     header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      padding:10px 0 18px;
-      border-bottom:1px solid rgba(42,36,26,.85);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+      padding:10px 0 18px; border-bottom:1px solid rgba(42,36,26,.85);
+      flex-wrap:wrap;
     }
     .brand{ letter-spacing:.18em; font-weight:700; font-size:16px; text-transform:uppercase; }
     .sub{ display:block; margin-top:6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); opacity:.9; }
-
     nav{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      padding-top:2px;
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
+      display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; padding-top:2px;
+      font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
     }
-    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; }
+    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; color:var(--muted); }
     nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
 
     .panel{
@@ -63,58 +48,36 @@
       border-radius:14px;
       padding:16px;
       background:rgba(0,0,0,.22);
-      position:relative;
-      overflow:hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
     }
-    .panel::before{
-      content:"";
-      position:absolute;
-      inset:-90px -90px auto auto;
-      width:320px;
-      height:320px;
-      background: radial-gradient(circle at 30% 30%, rgba(184,156,89,.11), transparent 66%);
-      transform: rotate(14deg);
-      pointer-events:none;
-    }
-    .panel h1, .panel h2{
-      margin:0 0 10px;
-      position:relative;
-      z-index:1;
-    }
-    .panel h1{ font-size:34px; line-height:1.1; }
-    .panel h2{ font-size:13px; letter-spacing:.16em; text-transform:uppercase; }
-    .panel p{
-      margin:0 0 10px;
-      color:var(--muted);
-      font-size:14px;
-      position:relative;
-      z-index:1;
-    }
+    h1{ margin:0 0 8px; font-size:34px; line-height:1.1; }
+    h2{ margin:0 0 10px; font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:#d8c9a6; }
+    p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
     label{
       display:block;
-      font-size:12px;
+      margin:14px 0 8px;
+      font-size:11px;
       letter-spacing:.14em;
       text-transform:uppercase;
-      color:var(--muted);
-      margin:12px 0 8px;
-      position:relative;
-      z-index:1;
+      color:#d8c9a6;
     }
     input, textarea{
       width:100%;
-      border:1px solid rgba(184,156,89,.45);
-      background: rgba(0,0,0,.35);
-      color:var(--ink);
-      padding:12px 12px;
+      padding:12px 14px;
       border-radius:12px;
+      border:1px solid rgba(184,156,89,.28);
+      background:rgba(0,0,0,.30);
+      color:var(--ink);
       outline:none;
       font-family:inherit;
       font-size:14px;
-      position:relative;
-      z-index:1;
     }
-    textarea{ min-height:120px; resize:vertical; }
-    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; position:relative; z-index:1; }
+    textarea{ min-height:140px; resize:vertical; }
+    input:focus, textarea:focus{ border-color:var(--gold); box-shadow:0 0 0 3px rgba(184,156,89,.10); }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media(max-width:900px){ .row{ grid-template-columns:1fr; } }
+
+    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
     .btn{
       appearance:none;
       border:1px solid var(--gold);
@@ -135,45 +98,14 @@
       background: rgba(0,0,0,.14);
     }
     .btn.secondary:hover{ background:#19140d; color:var(--ink); }
-
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(184,156,89,.35);
-      color:#d8c9a6;
-      font-size:11px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      background: rgba(0,0,0,.16);
+    .note{ font-size:12px; color:#9b9078; letter-spacing:.06em; margin-top:10px; }
+    .toast{
+      position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+      background:rgba(0,0,0,.78); border:1px solid var(--gold);
+      border-radius:14px; padding:10px 12px; color:var(--ink);
+      font-size:12px; letter-spacing:.08em; display:none; box-shadow: var(--shadow); z-index:9999;
     }
-
-    .out{
-      margin-top:12px;
-      padding:14px;
-      border-radius:14px;
-      border:1px solid rgba(184,156,89,.28);
-      background: rgba(0,0,0,.18);
-      position:relative;
-      z-index:1;
-      display:none;
-    }
-    code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:12px;
-      color:#d8c9a6;
-    }
-    .fine{ font-size:12px; color:#9b9078; letter-spacing:.06em; text-transform:none; margin-top:10px; }
-    footer{
-      margin-top:18px;
-      padding-top:16px;
-      border-top:1px solid rgba(42,36,26,.85);
-      color:#9b9078;
-      font-size:12px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      text-align:center;
-    }
+    .toast.show{ display:block; }
   </style>
 </head>
 <body>
@@ -181,170 +113,144 @@
     <header>
       <div>
         <div class="brand">Your Jaded Secrets</div>
-        <span class="sub">Gatekeeper · phrase rotation + midnight message</span>
+        <span class="sub">Gatekeeper · settings (device-local)</span>
       </div>
       <nav>
-        <a href="ledger.html">Ledger</a>
-        <a href="signal-room.html">Signals</a>
-        <a href="vault.html">Vault</a>
         <a href="index.html">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="vault.html">Vault</a>
+        <a href="observatory.html">Observatory</a>
       </nav>
     </header>
 
     <section class="panel">
       <h1>Gatekeeper</h1>
-      <p>
-        This page creates a “vault settings” blob and stores it in <code>localStorage</code> on this device.
-        It’s a control panel for you, not a server. If you want global control later, we add a backend.
-      </p>
-      <p class="fine">Key: <code>yjsVaultSettings</code></p>
+      <p>These settings live on <em>this device</em>. Perfect for you. Useless for the public (as intended).</p>
 
-      <h2>Rotate Phrases</h2>
-      <p>Enter phrases, one per line. The Vault will accept any of them.</p>
-      <label for="phrases">Phrases</label>
-      <textarea id="phrases" placeholder="PRIESTESS&#10;HIGH PRIESTESS&#10;DANGEROUS SOFT"></textarea>
-
-      <h2 style="margin-top:16px;">Midnight Window</h2>
-      <p>Local device time. Default is 11:55 PM → 12:15 AM.</p>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="row">
         <div>
-          <label for="start">Start (HH:MM, 24h)</label>
-          <input id="start" placeholder="23:55" />
+          <h2>Inner Chamber Phrase</h2>
+          <p>Controls <code>inner-chamber.html</code>. Rotate it whenever.</p>
+          <label for="innerPhrase">Current Phrase</label>
+          <input id="innerPhrase" type="text" placeholder="e.g., VELVET FLAME" />
+          <div class="note">Stored as <code>yjsInnerPhrase</code>.</div>
         </div>
+
         <div>
-          <label for="end">End (HH:MM, 24h)</label>
-          <input id="end" placeholder="00:15" />
+          <h2>Vault Phrases</h2>
+          <p>Optional: store a phrase list used by Vault (if your Vault reads <code>yjsVaultSettings</code>).</p>
+          <label for="vaultPhrases">Phrases (one per line)</label>
+          <textarea id="vaultPhrases" placeholder="PHRASE ONE&#10;PHRASE TWO&#10;PHRASE THREE"></textarea>
+          <div class="note">Stored inside <code>yjsVaultSettings.phrases</code>.</div>
         </div>
       </div>
 
-      <h2 style="margin-top:16px;">Closed Message</h2>
-      <p>What they see when it’s not open.</p>
-      <label for="closedMsg">Closed Message</label>
-      <textarea id="closedMsg" placeholder="Closed. Come back at 11:55 PM. New doors appear without announcement."></textarea>
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <h2>Vault Window</h2>
+          <p>Optional: set an open window (24h time). If your Vault supports it, it will respect this.</p>
+          <div class="row">
+            <div>
+              <label for="openStart">Open Start</label>
+              <input id="openStart" type="text" placeholder="00:00" />
+            </div>
+            <div>
+              <label for="openEnd">Open End</label>
+              <input id="openEnd" type="text" placeholder="03:33" />
+            </div>
+          </div>
+          <div class="note">Stored inside <code>yjsVaultSettings.window</code>.</div>
+        </div>
+
+        <div>
+          <h2>Closed Message</h2>
+          <label for="closedMsg">Message</label>
+          <textarea id="closedMsg" placeholder="The Vault is closed. Return at midnight."></textarea>
+          <div class="note">Stored inside <code>yjsVaultSettings.closedMessage</code>.</div>
+        </div>
+      </div>
 
       <div class="btnrow">
-        <button class="btn" id="save" type="button">Save Settings</button>
-        <button class="btn secondary" id="load" type="button">Load Settings</button>
-        <button class="btn secondary" id="clear" type="button">Clear Settings</button>
+        <button class="btn" id="save" type="button">Save</button>
+        <button class="btn secondary" id="load" type="button">Load</button>
+        <button class="btn secondary" id="reset" type="button">Reset</button>
       </div>
 
-      <div class="out" id="out"></div>
+      <p class="note">If you want these settings to follow you across devices, we’ll need a backend. For now: sovereign, local, quiet.</p>
     </section>
-
-    <footer>
-      © Gatekeeper · YJS
-      <div class="fine">If you share this page, you’re doing it wrong.</div>
-    </footer>
   </div>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
-    const KEY = "yjsVaultSettings";
-    const phrasesEl = document.getElementById("phrases");
-    const startEl = document.getElementById("start");
-    const endEl = document.getElementById("end");
-    const closedEl = document.getElementById("closedMsg");
-    const out = document.getElementById("out");
-
+    const toast = document.getElementById("toast");
     function show(msg){
-      out.style.display = "block";
-      out.textContent = msg;
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(window.__t);
+      window.__t = setTimeout(()=>toast.classList.remove("show"), 2200);
     }
 
-    function parseTime(t){
-      const m = (t||"").trim().match(/^(\d{1,2}):(\d{2})$/);
-      if(!m) return null;
-      const hh = Math.max(0, Math.min(23, parseInt(m[1],10)));
-      const mm = Math.max(0, Math.min(59, parseInt(m[2],10)));
-      return hh*60 + mm;
-    }
+    const KEY_INNER = "yjsInnerPhrase";
+    const KEY_VAULT = "yjsVaultSettings";
 
-    function save(){
-      const phrases = (phrasesEl.value || "").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-      const s = parseTime(startEl.value || "23:55");
-      const e = parseTime(endEl.value || "00:15");
-      const closedMsg = (closedEl.value || "").trim();
-
-      if(!phrases.length){
-        show("Add at least one phrase.");
-        return;
-      }
-      if(s === null || e === null){
-        show("Time format must be HH:MM.");
-        return;
-      }
-
-      const blob = { phrases, start: s, end: e, closedMsg, savedAt: new Date().toISOString() };
-      try{ localStorage.setItem(KEY, JSON.stringify(blob)); }catch(e){}
-      show("Saved. This device now enforces your settings.");
-    }
+    const innerPhrase = document.getElementById("innerPhrase");
+    const vaultPhrases = document.getElementById("vaultPhrases");
+    const openStart = document.getElementById("openStart");
+    const openEnd = document.getElementById("openEnd");
+    const closedMsg = document.getElementById("closedMsg");
 
     function load(){
       try{
-        const raw = localStorage.getItem(KEY);
-        if(!raw){
-          show("No settings saved on this device.");
-          return;
-        }
-        const blob = JSON.parse(raw);
-        phrasesEl.value = (blob.phrases || []).join("\n");
-        startEl.value = minsToTime(blob.start ?? 1435);
-        endEl.value = minsToTime(blob.end ?? 15);
-        closedEl.value = blob.closedMsg || "Closed. Come back at 11:55 PM. New doors appear without announcement.";
-        show("Loaded settings saved at " + (blob.savedAt || "unknown") + ".");
-      }catch(e){
-        show("Couldn’t load settings.");
-      }
+        innerPhrase.value = (localStorage.getItem(KEY_INNER) || "");
+      }catch(e){}
+
+      let v = {};
+      try{ v = JSON.parse(localStorage.getItem(KEY_VAULT) || "{}"); }catch(e){ v = {}; }
+      vaultPhrases.value = (v.phrases || []).join("\n");
+      openStart.value = (v.window && v.window.start) ? v.window.start : "";
+      openEnd.value = (v.window && v.window.end) ? v.window.end : "";
+      closedMsg.value = v.closedMessage || "";
+      show("Loaded.");
     }
 
-    function clear(){
-      try{ localStorage.removeItem(KEY); }catch(e){}
-      show("Cleared settings on this device.");
-    }
+    function save(){
+      try{
+        localStorage.setItem(KEY_INNER, (innerPhrase.value || "").trim());
+      }catch(e){}
 
-    function minsToTime(m){
-      m = Number(m||0);
-      const hh = String(Math.floor(m/60)%24).padStart(2,"0");
-      const mm = String(Math.floor(m%60)).padStart(2,"0");
-      return hh + ":" + mm;
-    }
+      const phrases = (vaultPhrases.value || "")
+        .split(/\r?\n/)
+        .map(s => s.trim())
+        .filter(Boolean);
 
-    document.getElementById("save").addEventListener("click", save);
-    document.getElementById("load").addEventListener("click", load);
-    document.getElementById("clear").addEventListener("click", clear);
-
-    // defaults
-    phrasesEl.value = "PRIESTESS\nHIGH PRIESTESS\nDANGEROUS SOFT\nYOU DONT NEED PERMISSION";
-    startEl.value = "23:55";
-    endEl.value = "00:15";
-    closedEl.value = "Closed. Come back at 11:55 PM (local time). New doors appear without announcement.";
-  </script>
-
-  <script>
-    // Observatory counters (device-local). Not tracking people. Tracking signals.
-    (function(){
-      const KEY = "yjsObs";
-      function load(){ try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; } }
-      function save(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
-      const o = load();
-      const page = (location.pathname.split("/").pop() || "index.html");
-      o.pageViews = o.pageViews || {};
-      o.pageViews[page] = (o.pageViews[page] || 0) + 1;
-      o.lastSeen = new Date().toISOString();
-      o.lastPage = page;
-      save(o);
-      // expose tiny helper
-      window.__yjsObs = {
-        bump: function(evt){
-          const x = load();
-          x.events = x.events || {};
-          x.events[evt] = (x.events[evt] || 0) + 1;
-          x.lastEvent = evt;
-          x.lastSeen = new Date().toISOString();
-          save(x);
-        }
+      const v = {
+        phrases,
+        window: { start: (openStart.value||"").trim(), end: (openEnd.value||"").trim() },
+        closedMessage: (closedMsg.value||"").trim()
       };
-    })();
-  </script>
 
+      try{ localStorage.setItem(KEY_VAULT, JSON.stringify(v)); }catch(e){}
+      show("Saved.");
+      try{ window.__yjsObs && window.__yjsObs.bump && window.__yjsObs.bump("gatekeeper_save"); }catch(e){}
+    }
+
+    function reset(){
+      try{ localStorage.removeItem(KEY_INNER); }catch(e){}
+      try{ localStorage.removeItem(KEY_VAULT); }catch(e){}
+      innerPhrase.value = "";
+      vaultPhrases.value = "";
+      openStart.value = "";
+      openEnd.value = "";
+      closedMsg.value = "";
+      show("Reset.");
+    }
+
+    document.getElementById("load").addEventListener("click", load);
+    document.getElementById("save").addEventListener("click", save);
+    document.getElementById("reset").addEventListener("click", reset);
+
+    load();
+  </script>
 </body>
 </html>

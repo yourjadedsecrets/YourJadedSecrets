@@ -247,5 +247,28 @@
       window.location.href = "mailto:yourjadedsecrets@gmail.com?subject=" + subject + "&body=" + body;
     });
   </script>
+
+  <div id="operatorDock" style="display:none; position:fixed; right:14px; bottom:14px; z-index:9998;">
+    <div style="border:1px solid rgba(184,156,89,.55); background:rgba(0,0,0,.66); border-radius:16px; padding:10px 10px; box-shadow:0 18px 60px rgba(0,0,0,.55); backdrop-filter: blur(6px);">
+      <div style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#c8bb9a; margin:0 0 8px;">Operator</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <a href="observatory.html" style="border:1px solid #6a5a35; color:#c8bb9a; padding:8px 10px; border-radius:12px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;">Observatory</a>
+        <a href="gatekeeper.html" style="border:1px solid #6a5a35; color:#c8bb9a; padding:8px 10px; border-radius:12px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;">Gatekeeper</a>
+        <a href="ledger.html" style="border:1px solid #6a5a35; color:#c8bb9a; padding:8px 10px; border-radius:12px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;">Ledger</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      try{
+        if(localStorage.getItem("yjsCoronated")){
+          const d = document.getElementById("operatorDock");
+          if(d) d.style.display = "block";
+        }
+      }catch(e){}
+    })();
+  </script>
+
 </body>
 </html>
