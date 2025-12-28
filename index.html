@@ -12,6 +12,8 @@
       --ink:#e4dcc3;
       --muted:#c8bb9a;
       --gold:#b89c59;
+      --red:#6b0f1a;   /* oxblood */
+      --rose:#b31237;  /* ember accent */
       --line:#2a241a;
       --radius:16px;
       --max:1120px;
@@ -22,6 +24,7 @@
     body{
       margin:0;
       background: radial-gradient(1200px 800px at 20% 0%, rgba(184,156,89,.08), transparent 55%),
+                  radial-gradient(980px 680px at 25% 85%, rgba(107,15,26,.10), transparent 60%),
                   radial-gradient(900px 600px at 85% 10%, rgba(228,220,195,.06), transparent 55%),
                   var(--bg);
       color:var(--ink);
@@ -100,7 +103,9 @@
       content:"";
       position:absolute;
       inset:0;
-      background: radial-gradient(700px 480px at 30% 25%, rgba(184,156,89,.18), transparent 62%);
+      background:
+        radial-gradient(700px 480px at 30% 25%, rgba(184,156,89,.18), transparent 62%),
+        radial-gradient(720px 520px at 75% 45%, rgba(107,15,26,.14), transparent 62%);
       pointer-events:none;
     }
 
@@ -166,6 +171,7 @@
     .btn:hover{
       background:var(--gold);
       color:#0b0b0b;
+      box-shadow: 0 0 0 1px rgba(184,156,89,.25), 0 16px 40px rgba(107,15,26,.18);
     }
     .btn.secondary{
       border-color:#6a5a35;
@@ -174,6 +180,7 @@
     .btn.secondary:hover{
       background:#19140d;
       color:var(--ink);
+      box-shadow: 0 0 0 1px rgba(107,15,26,.22), 0 16px 40px rgba(0,0,0,.45);
     }
 
     .grid{
@@ -233,6 +240,216 @@
       text-transform:uppercase;
       color:var(--ink);
     }
+
+    /* Priestess */
+    .priestess{
+      position:relative;
+      overflow:hidden;
+    }
+    .priestess::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(700px 420px at 18% 15%, rgba(107,15,26,.16), transparent 60%),
+        radial-gradient(640px 420px at 82% 55%, rgba(184,156,89,.10), transparent 62%);
+      pointer-events:none;
+    }
+    .priestess-inner{
+      position:relative;
+      z-index:1;
+    }
+    .priestess-rule{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(179,18,55,.65), rgba(184,156,89,.35), transparent);
+      margin-top:14px;
+    }
+    .code-lines{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+    }
+    .code-lines li{
+      margin:10px 0;
+      color:var(--ink);
+      opacity:.94;
+      letter-spacing:.01em;
+    }
+    .code-lines li strong{
+      color:var(--ink);
+      font-weight:700;
+    }
+    .code-lines li span{
+      color:var(--muted);
+    }
+
+    /* Red Chamber (structure-only) */
+    .chamber{
+      position:relative;
+      overflow:hidden;
+    }
+    .chamber::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(760px 520px at 22% 20%, rgba(107,15,26,.14), transparent 62%),
+        radial-gradient(820px 560px at 78% 70%, rgba(184,156,89,.08), transparent 64%);
+      pointer-events:none;
+    }
+    .chamber-inner{
+      position:relative;
+      z-index:1;
+    }
+    .chamber-kicker{
+      margin:0 0 12px;
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .chamber-title{
+      margin:0 0 10px;
+      font-size:28px;
+      letter-spacing:.04em;
+      line-height:1.14;
+    }
+    .chamber-line{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(179,18,55,.70), rgba(184,156,89,.35), transparent);
+      margin:16px 0 10px;
+    }
+    .vow{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+    .vow li{
+      padding:12px 12px;
+      border:1px solid rgba(42,36,26,.9);
+      border-radius:12px;
+      background: rgba(0,0,0,.22);
+    }
+    .vow li strong{
+      display:block;
+      color:var(--ink);
+      letter-spacing:.02em;
+      margin-bottom:4px;
+    }
+    .ember{
+      color: #f0d8bf;
+      text-shadow: 0 0 18px rgba(179,18,55,.18);
+    }
+
+    /* Vault Door (structure-only) */
+    .vault-grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 920px){ .vault-grid{ grid-template-columns: 1fr; } }
+
+    .vault-card{
+      border:1px solid rgba(42,36,26,.95);
+      border-radius:14px;
+      background: rgba(0,0,0,.20);
+      padding:14px 14px 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .vault-card::before{
+      content:"";
+      position:absolute;
+      inset:-40px -40px auto auto;
+      width:220px;
+      height:220px;
+      background: radial-gradient(circle at 30% 30%, rgba(179,18,55,.16), transparent 64%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .vault-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    .vault-title{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .pill{
+      border:1px solid rgba(184,156,89,.55);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      background: rgba(0,0,0,.22);
+      white-space:nowrap;
+    }
+    .vault-body{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      position:relative;
+      z-index:1;
+    }
+    .vault-notes{
+      margin-top:12px;
+      font-size:12px;
+      color:#a79a82;
+      letter-spacing:.02em;
+      position:relative;
+      z-index:1;
+    }
+
+    /* Signals */
+    .signals{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 920px){ .signals{ grid-template-columns: 1fr; } }
+
+    .sig-item{
+      border:1px solid rgba(42,36,26,.95);
+      border-radius:14px;
+      background: rgba(0,0,0,.20);
+      padding:14px;
+    }
+    .sig-item h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--ink);
+    }
+    .sig-item p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .input{
+      width:100%;
+      border:1px solid rgba(184,156,89,.45);
+      background: rgba(0,0,0,.35);
+      color:var(--ink);
+      padding:12px 12px;
+      border-radius:12px;
+      outline:none;
+      font-family:inherit;
+      font-size:14px;
+    }
+    .input::placeholder{ color:#a79a82; }
 
     .gallery{
       margin-top:14px;
@@ -342,6 +559,11 @@
       <nav>
         <a href="#threshold">Threshold</a>
         <a href="#manifesto">Manifesto</a>
+        <a href="#priestess">Priestess</a>
+        <a href="#chamber">Red Chamber</a>
+        <a href="#vault">Vault</a>
+        <a href="#sanctum">Sanctum</a>
+        <a href="#signals">Signals</a>
         <a href="#gallery">Gallery</a>
         <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
       </nav>
@@ -357,8 +579,7 @@
           </p>
           <div class="cta-row">
             <a class="btn" href="#manifesto">Cross the Threshold</a>
-            <a class="btn secondary" href="#gallery">Witness the Artifacts</a>
-            <a class="btn secondary" href="https://yourjadedsecrets.github.io/YourJadedSecrets/" target="_blank" rel="noopener noreferrer">Open Live Site</a>
+            <a class="btn secondary" href="#vault">Enter the Vault</a>
             <a class="btn secondary" href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
           </div>
           <p class="fine">New doors appear without announcement.</p>
@@ -374,8 +595,8 @@
         <p>This space holds drafts, drops, rituals, and future physical goods. The point is not to be liked. The point is to be inevitable.</p>
 
         <div class="cta-row">
-          <a class="btn" href="mailto:cydniet@gmail.com?subject=YJS%20Entry%20Request&body=Name:%0AWhy%20I%20found%20this:%0AWhat%20I%20want%20to%20build:%0A" target="_blank" rel="noopener noreferrer">Request Access</a>
-          <a class="btn secondary" href="#gallery">Skip to Gallery</a>
+          <a class="btn" href="#signals">Signal Interest</a>
+          <a class="btn secondary" href="#priestess">Read the Code</a>
           <a class="btn secondary" href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Back to Midnight Garden</a>
         </div>
       </div>
@@ -385,15 +606,128 @@
       </div>
     </section>
 
-    <section class="panel" style="margin-top:16px;">
-      <h2>Offerings in the Making</h2>
-      <p>
-        • Private ritual prompts + “spin-a-nite” experiences<br/>
-        • Body-safe candles (made by you, not factory sadness)<br/>
-        • Dark feminine wealth systems: planners, trackers, altar dashboards<br/>
-        • Midnight unlock moments for those who are ready
-      </p>
-      <p class="fine">New doors appear without announcement.</p>
+    <section class="panel priestess" id="priestess" style="margin-top:16px;">
+      <div class="priestess-inner">
+        <h2>The Priestess Code</h2>
+        <p>Not a performance. A standard.</p>
+
+        <ul class="code-lines">
+          <li><strong>I move deliberately.</strong> <span>I don’t rush what responds to me.</span></li>
+          <li><strong>My softness is strategic.</strong> <span>My pleasure is informed.</span></li>
+          <li><strong>I do not chase power.</strong> <span>I cultivate it.</span></li>
+          <li><strong>I don’t ask permission.</strong> <span>I assume alignment.</span></li>
+        </ul>
+
+        <div class="priestess-rule"></div>
+        <p class="fine">Sexy isn’t chaos. It’s composure.</p>
+      </div>
+    </section>
+
+    <!-- Red Chamber (structure-only) -->
+    <section class="panel chamber" id="chamber" style="margin-top:16px;">
+      <div class="chamber-inner">
+        <p class="chamber-kicker">Private room. No announcements.</p>
+        <h2 class="chamber-title">The Red Chamber</h2>
+        <p class="ember" style="margin:0 0 10px; font-size:14px;">
+          Desire becomes composure here.
+        </p>
+
+        <div class="chamber-line"></div>
+
+        <p style="margin:0 0 14px; color:var(--muted); font-size:14px;">
+          If you stayed long enough to find this, you already understand the rule:
+          nothing powerful begs for attention. It waits. It watches. It decides.
+        </p>
+
+        <ul class="vow">
+          <li>
+            <strong>I don’t chase.</strong>
+            <span style="color:var(--muted); font-size:13px;">I make room for what belongs with me.</span>
+          </li>
+          <li>
+            <strong>I don’t perform softness.</strong>
+            <span style="color:var(--muted); font-size:13px;">I use it like velvet over steel.</span>
+          </li>
+          <li>
+            <strong>I don’t need access to be powerful.</strong>
+            <span style="color:var(--muted); font-size:13px;">I set the door. I set the terms.</span>
+          </li>
+          <li>
+            <strong>I keep my luxury private.</strong>
+            <span style="color:var(--muted); font-size:13px;">Until it’s irreversible.</span>
+          </li>
+        </ul>
+
+        <p class="fine" style="margin-top:14px;">New doors appear without announcement.</p>
+      </div>
+    </section>
+
+    <!-- Vault Door (structure-only) -->
+    <section class="panel" id="vault" style="margin-top:16px;">
+      <h2>The Vault</h2>
+      <p>Everything here is being prepared. Nothing here is begging.</p>
+
+      <div class="vault-grid">
+        <div class="vault-card">
+          <div class="vault-head">
+            <h3 class="vault-title">Rituals</h3>
+            <div class="pill">in the making</div>
+          </div>
+          <div class="vault-body">
+            Private prompts, “spin-a-nite” experiences, and nervous-system-safe rituals that turn desire into direction.
+          </div>
+          <div class="vault-notes">Drops appear when they’re ready.</div>
+        </div>
+
+        <div class="vault-card">
+          <div class="vault-head">
+            <h3 class="vault-title">Wealth Systems</h3>
+            <div class="pill">drafting</div>
+          </div>
+          <div class="vault-body">
+            Planners, trackers, altar dashboards. Quiet structure. Loud results. For people who don’t do “maybe.”
+          </div>
+          <div class="vault-notes">Built to be used, not admired.</div>
+        </div>
+
+        <div class="vault-card">
+          <div class="vault-head">
+            <h3 class="vault-title">Physical Goods</h3>
+            <div class="pill">for later</div>
+          </div>
+          <div class="vault-body">
+            Body-safe candles, tools, and objects with intention. No factory sadness. Only crafted devotion.
+          </div>
+          <div class="vault-notes">When this launches, it won’t be subtle.</div>
+        </div>
+      </div>
+
+      <p class="fine" style="margin-top:14px;">If you want the first drop, don’t lurk. Signal.</p>
+    </section>
+
+    <!-- Signals (structure-only) -->
+    <section class="panel" id="signals" style="margin-top:16px;">
+      <h2>Signals</h2>
+      <p>Not a newsletter. A knock.</p>
+
+      <div class="signals">
+        <div class="sig-item">
+          <h3>Request Access</h3>
+          <p>Send a clean note. Name. Intent. What you’re building. That’s it.</p>
+          <div class="cta-row">
+            <a class="btn" href="mailto:cydniet@gmail.com?subject=YJS%20Signal&body=Name:%0AWhy%20I%20found%20this:%0AWhat%20I%20want%20to%20build:%0A" target="_blank" rel="noopener noreferrer">Email the Signal</a>
+            <a class="btn secondary" href="#vault">Back to Vault</a>
+          </div>
+          <p class="fine">New doors appear without announcement.</p>
+        </div>
+
+        <div class="sig-item">
+          <h3>Leave a Mark</h3>
+          <p>Optional: drop your handle so future drops can find you.</p>
+          <input class="input" type="text" placeholder="@yourhandle (optional, local only)" aria-label="Handle (optional)" />
+          <p class="fine">This field doesn’t submit anywhere yet. It’s a placeholder for when we wire it.</p>
+        </div>
+      </div>
     </section>
 
     <section class="panel" id="gallery" style="margin-top:16px;">
@@ -412,6 +746,18 @@
         <div class="tile" data-full="images/01-cosmos.jpg" style="background-image:url('images/01-cosmos.jpg');"><span>Reach me</span></div>
       </div>
     </section>
+
+
+    <section class="ember" id="sanctum">
+      <h2>The Ember Sanctum</h2>
+      <p>
+        This is where heat becomes discipline.<br/>
+        Desire doesn’t rush. It concentrates.<br/>
+        Nothing here is public by accident.
+      </p>
+      <p class="fine" style="margin-top:10px;">Access unfolds in stages.</p>
+    </section>
+
 
     <footer>
       © Your Jaded Secrets · Murphy Made
