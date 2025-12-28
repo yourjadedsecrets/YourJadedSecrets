@@ -213,7 +213,8 @@
   <div class="wrap">
     <div class="card">
       <div class="top">
-        <p class="kicker">Unlocked · keep it quiet</p>
+        <div data-owner-only="true">
+<p class="kicker">Unlocked · keep it quiet</p>
         <h1>The Altar</h1>
         <p class="lead">
           This is where drops are staged before they exist in public. Nothing here is meant for everybody.
@@ -247,6 +248,7 @@
             Example: <code>href="drops/priestess-prompts.pdf"</code><br/>
             GitHub Pages will serve it like any normal download.
           </p>
+</div>
           <div class="fine">If it’s in the repo, it’s accessible. Keep that in mind.</div>
         </div>
 
@@ -345,6 +347,19 @@
   }catch(e){}
 })();
 </script>
+
+  <script>
+    (function(){
+      function isOwner(){
+        try{ return !!localStorage.getItem("yjsOwner") || !!localStorage.getItem("yjsCoronated"); }catch(e){ return false; }
+      }
+      const ok = isOwner();
+      document.querySelectorAll('[data-owner-only="true"]').forEach(el=>{
+        if(!ok) el.style.display = "none";
+      });
+    })();
+  </script>
+
 </body>
 
 </html>

@@ -1,385 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Coronation · Your Jaded Secrets</title>
-
-  <style>
-    :root{
-      --bg:#050505;
-      --panel:rgba(0,0,0,.62);
-      --ink:#e4dcc3;
-      --muted:#c8bb9a;
-      --gold:#b89c59;
-      --crimson:#a41212;
-      --line:#2a241a;
-      --radius:18px;
-      --max:1120px;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      min-height:100vh;
-      background:
-        radial-gradient(1100px 720px at 18% 8%, rgba(164,18,18,.24), transparent 58%),
-        radial-gradient(900px 640px at 82% 24%, rgba(184,156,89,.14), transparent 55%),
-        radial-gradient(760px 520px at 55% 85%, rgba(228,220,195,.06), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.94)),
-        var(--bg);
-      color:var(--ink);
-      font-family:"Playfair Display", serif;
-      line-height:1.6;
-    }
-    a{ color:inherit; text-decoration:none; }
-
-    .wrap{ max-width:var(--max); margin:0 auto; padding:28px 18px 76px; }
-
-    header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      padding:10px 0 18px;
-      border-bottom:1px solid var(--line);
-      flex-wrap:wrap;
-    }
-    .brand{
-      letter-spacing:.18em;
-      font-weight:700;
-      font-size:18px;
-      text-transform:uppercase;
-    }
-    .subbrand{
-      display:block;
-      margin-top:6px;
-      font-size:12px;
-      letter-spacing:.12em;
-      color:var(--muted);
-      text-transform:uppercase;
-      opacity:.9;
-    }
-    nav{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      padding-top:2px;
-      font-size:12px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; }
-    nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
-
-    .hero{
-      margin-top:22px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow: var(--shadow);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.90)),
-        radial-gradient(900px 540px at 40% 25%, rgba(164,18,18,.32), transparent 62%),
-        radial-gradient(720px 520px at 82% 70%, rgba(184,156,89,.16), transparent 62%),
-        #040404;
-      position:relative;
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-40px;
-      background:
-        radial-gradient(closest-side at 35% 22%, rgba(184,156,89,.20), transparent 60%),
-        radial-gradient(closest-side at 68% 58%, rgba(164,18,18,.18), transparent 62%);
-      filter: blur(2px);
-      pointer-events:none;
-    }
-    .hero-inner{ position:relative; z-index:1; padding:22px; }
-
-    .card{
-      max-width:920px;
-      background:var(--panel);
-      border:1px solid var(--gold);
-      border-radius:var(--radius);
-      padding:18px 18px 16px;
-      backdrop-filter: blur(6px);
-    }
-
-    .kicker{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin:0 0 10px;
-    }
-    h1{
-      margin:0 0 10px;
-      font-size:40px;
-      line-height:1.06;
-      letter-spacing:.02em;
-    }
-    .lead{
-      margin:0 0 12px;
-      font-size:15px;
-      color:var(--ink);
-      opacity:.92;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
-      margin-top:16px;
-    }
-    @media (max-width: 920px){ .grid{ grid-template-columns:1fr; } }
-
-    .panel{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:18px;
-      background:rgba(255,255,255,.02);
-      box-shadow: 0 10px 28px rgba(0,0,0,.35);
-    }
-    .panel h2{
-      margin:0 0 8px;
-      font-size:14px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-    .panel p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
-
-    label{
-      display:block;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin:14px 0 8px;
-    }
-    input[type="password"]{
-      width:100%;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid #3a2f1c;
-      background:rgba(0,0,0,.35);
-      color:var(--ink);
-      outline:none;
-      font-family:inherit;
-      font-size:14px;
-    }
-    input[type="password"]::placeholder{ color:#a99c83; }
-    input[type="password"]:focus{
-      border-color:var(--gold);
-      box-shadow:0 0 0 3px rgba(184,156,89,.10);
-    }
-
-    .cta-row{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid var(--gold);
-      background:transparent;
-      color:var(--ink);
-      padding:11px 16px;
-      border-radius:12px;
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      cursor:pointer;
-      display:inline-block;
-    }
-    .btn:hover{ background:var(--gold); color:#0b0b0b; }
-    .btn.secondary{
-      border-color:#6a5a35;
-      color:var(--muted);
-      background:rgba(0,0,0,.14);
-    }
-    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
-
-    .fine{
-      font-size:12px;
-      color:#9b9078;
-      letter-spacing:.06em;
-      margin-top:10px;
-    }
-
-    .seal{
-      border:1px solid rgba(184,156,89,.35);
-      background:rgba(0,0,0,.28);
-      border-radius:16px;
-      padding:14px 14px;
-      margin-top:12px;
-      position:relative;
-      overflow:hidden;
-    }
-    .seal::after{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(closest-side at 30% 20%, rgba(184,156,89,.22), transparent 60%);
-      opacity:.75;
-      pointer-events:none;
-    }
-    .seal strong{ color:var(--ink); }
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%);
-      background:rgba(0,0,0,.78);
-      border:1px solid var(--gold);
-      border-radius:14px;
-      padding:10px 12px;
-      color:var(--ink);
-      font-size:12px;
-      letter-spacing:.08em;
-      display:none;
-      box-shadow: var(--shadow);
-      z-index:9999;
-    }
-    .toast.show{ display:block; }
-
-    footer{
-      margin-top:26px;
-      padding-top:18px;
-      border-top:1px solid var(--line);
-      color:#9b9078;
-      font-size:12px;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      text-align:center;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Coronation · YJS</title>
+<style>
+:root{
+  --bg:#050505;
+  --ink:#e4dcc3;
+  --muted:#bfb396;
+  --gold:#b89c59;
+  --red:#7b0f1f;
+  --line:#2a241a;
+  --radius:18px;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:40px 18px;
+  font-family:"Playfair Display", serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(123,15,31,.22), transparent 60%),
+    radial-gradient(700px 500px at 80% 70%, rgba(184,156,89,.14), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+    var(--bg);
+}
+.wrap{ max-width:900px; margin:0 auto; }
+.panel{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px 24px;
+  background:rgba(0,0,0,.25);
+}
+h1{
+  font-size:38px;
+  line-height:1.1;
+  margin:0 0 18px;
+}
+p{
+  font-size:16px;
+  color:var(--muted);
+  margin:0 0 14px;
+}
+.truth{
+  border-left:3px solid var(--gold);
+  padding-left:14px;
+  margin:18px 0;
+}
+.truth strong{
+  color:var(--ink);
+}
+.btn{
+  display:inline-block;
+  margin-top:26px;
+  padding:14px 22px;
+  border-radius:14px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--ink);
+  font-size:13px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.btn:hover{
+  background:var(--gold);
+  color:#0b0b0b;
+}
+.after{
+  display:none;
+  margin-top:26px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+footer{
+  margin-top:24px;
+  font-size:12px;
+  color:#9b9078;
+  text-align:center;
+  letter-spacing:.1em;
+}
+</style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <div class="brand">Your Jaded Secrets</div>
-        <span class="subbrand">Coronation · Operator Ceremony</span>
-      </div>
+<div class="wrap">
+  <section class="panel">
+    <h1>You don’t arrive here by accident.</h1>
+    <p>This isn’t a reward. It’s a recognition.</p>
 
-      <nav>
-        <a href="index.html">Return to YJS</a>
-        <a href="rooms.html">Rooms</a>
-        <a href="inner-chamber.html">Inner Chamber</a>
-        <a href="owner.html">Owner Key</a>
-      </nav>
-    </header>
+    <div class="truth">
+      <strong>Ownership.</strong>
+      <p>You do not wait to be chosen. You choose.</p>
+    </div>
+    <div class="truth">
+      <strong>Standards.</strong>
+      <p>You protect your energy like capital.</p>
+    </div>
+    <div class="truth">
+      <strong>Time.</strong>
+      <p>You move when it’s correct, not when it’s loud.</p>
+    </div>
 
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="card">
-          <p class="kicker">New doors appear without announcement.</p>
-          <h1>Coronation.</h1>
-          <p class="lead">This is where the site stops being “a project” and becomes a *system you command*.</p>
-          <p class="fine">Access is remembered per device/browser. New device = new door.</p>
-        </div>
+    <button class="btn" id="claim">I Claim My Authority</button>
 
-        <div class="grid">
-          <div class="panel">
-            <h2>The Vow</h2>
-            <p><strong>I own my world.</strong> I move with softness that doesn’t ask. I keep my luxury private until it’s irreversible.</p>
-            <div class="seal">
-              <p style="margin:0 0 8px;"><strong>Operator Mode</strong> turns on for this device when you complete Coronation.</p>
-              <p style="margin:0; color:var(--muted); font-size:13px;">It reveals the Operator Dock and unlock behaviors that keep your build manageable.</p>
-            </div>
+    <div class="after" id="after">
+      <p><strong>It’s done.</strong></p>
+      <p>Return to the world. Nothing here needs to prove itself.</p>
+      <a class="btn" href="index.html">Return to YJS</a>
+    </div>
+  </section>
 
-            <div class="cta-row">
-              <button class="btn" id="coronate" type="button">Complete Coronation</button>
-              <a class="btn secondary" href="rooms.html">Return to Rooms</a>
-            </div>
+  <footer>© Coronation · YJS</footer>
+</div>
 
-            <p class="fine" id="statusLine"></p>
-          </div>
+<script>
+(function(){
+  const KEY = "yjsCoronated";
+  const btn = document.getElementById("claim");
+  const after = document.getElementById("after");
 
-          <div class="panel">
-            <h2>Owner Override</h2>
-            <p>This is optional. Use it when you’re on a fresh device and want the whole mansion open instantly.</p>
+  if(localStorage.getItem(KEY)){
+    btn.style.display = "none";
+    after.style.display = "block";
+  }
 
-            <label for="ownerKey">Owner Passcode</label>
-            <input id="ownerKey" type="password" placeholder="Enter owner key (default: PRIESTESS)" autocomplete="off" />
-
-            <div class="cta-row">
-              <button class="btn secondary" id="ownerUnlock" type="button">Claim This Device</button>
-              <a class="btn secondary" href="owner.html">Open Owner Page</a>
-            </div>
-
-            <p class="fine">This does not create accounts. It sets device-local flags. Quiet power, low maintenance.</p>
-          </div>
-        </div>
-
-        <footer>
-          © Your Jaded Secrets · Murphy Made
-          <div class="fine">Dangerous soft. Luxurious menace.</div>
-        </footer>
-      </div>
-    </section>
-  </div>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script>
-    const toast = document.getElementById("toast");
-    const statusLine = document.getElementById("statusLine");
-    function show(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(window.__t);
-      window.__t = setTimeout(()=>toast.classList.remove("show"), 2400);
-    }
-
-    function setFlags(mode){
-      try{
-        localStorage.setItem("yjsCoronated","true");
-        localStorage.setItem("yjs_phrase_ok","true");
-        if(mode === "owner"){
-          localStorage.setItem("yjsOwner","true");
-          localStorage.setItem("yjsVaultUnlocked","true");
-          localStorage.setItem("yjsVaultRewardOpened","true");
-        }
-        if(!localStorage.getItem("yjsInnerPhrase")){
-          localStorage.setItem("yjsInnerPhrase","VELVET FLAME");
-        }
-      }catch(e){}
-    }
-
-    function refreshStatus(){
-      try{
-        const c = !!localStorage.getItem("yjsCoronated");
-        const o = !!localStorage.getItem("yjsOwner");
-        if(o) statusLine.textContent = "Status: Coronated + Owner (this device).";
-        else if(c) statusLine.textContent = "Status: Coronated (this device).";
-        else statusLine.textContent = "";
-      }catch(e){}
-    }
-
-    document.getElementById("coronate").addEventListener("click", () => {
-      setFlags("coronation");
-      show("Coronated. Operator mode online.");
-      refreshStatus();
-      setTimeout(()=>{ window.location.href = "rooms.html"; }, 650);
-    });
-
-    document.getElementById("ownerUnlock").addEventListener("click", () => {
-      const k = (document.getElementById("ownerKey").value || "").trim().toUpperCase();
-      if(!k){ show("No key. No claim."); return; }
-      if(k !== "PRIESTESS"){ show("Not the key."); return; }
-      setFlags("owner");
-      show("Claimed. This device is yours.");
-      refreshStatus();
-      setTimeout(()=>{ window.location.href = "rooms.html"; }, 650);
-    });
-
-    refreshStatus();
-  </script>
+  btn.addEventListener("click", function(){
+    try{
+      localStorage.setItem(KEY, "true");
+      if(window.__yjsObs && window.__yjsObs.bump){
+        window.__yjsObs.bump("coronation");
+      }
+    }catch(e){}
+    btn.style.display = "none";
+    after.style.display = "block";
+  });
+})();
+</script>
 </body>
 </html>
