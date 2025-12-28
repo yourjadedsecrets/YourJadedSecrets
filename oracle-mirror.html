@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oracle Mirror · Your Jaded Secrets</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(0,0,0,.66);
+      --ink:#e4dcc3;
+      --muted:#bfb396;
+      --gold:#b89c59;
+      --red:#7b0f1f;
+      --line:#2a241a;
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px 18px 60px;
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      background:
+        radial-gradient(950px 640px at 18% 12%, rgba(123,15,31,.24), transparent 60%),
+        radial-gradient(820px 560px at 82% 70%, rgba(184,156,89,.14), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+        var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(184,156,89,.28); }
+    a:hover{ border-bottom-color:var(--gold); }
+
+    .wrap{ max-width:1120px; margin:0 auto; }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0 18px;
+      border-bottom:1px solid rgba(42,36,26,.85);
+    }
+    .brand{
+      letter-spacing:.18em;
+      font-weight:700;
+      font-size:16px;
+      text-transform:uppercase;
+    }
+    .sub{
+      display:block;
+      margin-top:6px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      opacity:.9;
+    }
+    nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding-top:2px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; }
+    nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
+
+    .hero{
+      margin-top:20px;
+      border:1px solid rgba(184,156,89,.40);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:
+        radial-gradient(520px 320px at 16% 25%, rgba(179,18,55,.22), transparent 62%),
+        radial-gradient(520px 320px at 84% 35%, rgba(184,156,89,.12), transparent 64%),
+        rgba(0,0,0,.35);
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.85)),
+        radial-gradient(900px 420px at 50% 0%, rgba(123,15,31,.12), transparent 65%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      padding:22px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:end;
+    }
+    @media (max-width: 920px){
+      .hero-inner{ grid-template-columns:1fr; }
+    }
+    .kicker{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:40px;
+      line-height:1.05;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      max-width:820px;
+    }
+
+    .panel{
+      margin-top:14px;
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      padding:16px;
+      background:rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:-90px -90px auto auto;
+      width:320px;
+      height:320px;
+      background: radial-gradient(circle at 30% 30%, rgba(184,156,89,.11), transparent 66%);
+      transform: rotate(14deg);
+      pointer-events:none;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      position:relative;
+      z-index:1;
+    }
+    .panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid{ grid-template-columns:1fr; } }
+
+    label{
+      display:block;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:12px 0 8px;
+      position:relative;
+      z-index:1;
+    }
+    select, input, textarea{
+      width:100%;
+      border:1px solid rgba(184,156,89,.45);
+      background: rgba(0,0,0,.35);
+      color:var(--ink);
+      padding:12px 12px;
+      border-radius:12px;
+      outline:none;
+      font-family:inherit;
+      font-size:14px;
+      position:relative;
+      z-index:1;
+    }
+    textarea{ min-height:88px; resize:vertical; }
+
+    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; position:relative; z-index:1; }
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-block;
+    }
+    .btn:hover{ background:var(--gold); color:#0b0b0b; }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+      background: rgba(0,0,0,.14);
+    }
+    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
+
+    .output{
+      margin-top:14px;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid rgba(184,156,89,.28);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+      position:relative;
+      z-index:1;
+    }
+    .output .sigil{
+      display:inline-block;
+      margin-top:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(184,156,89,.35);
+      color:#d8c9a6;
+      font-size:11px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      background: rgba(0,0,0,.16);
+    }
+    .quote{
+      font-size:20px;
+      line-height:1.25;
+      color:var(--ink);
+      margin:0;
+    }
+    .fine{
+      font-size:12px;
+      color:#9b9078;
+      letter-spacing:.06em;
+      text-transform:none;
+      margin-top:10px;
+    }
+    footer{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid rgba(42,36,26,.85);
+      color:#9b9078;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">Your Jaded Secrets</div>
+        <span class="sub">Oracle Mirror · identity + decision</span>
+      </div>
+      <nav>
+        <a href="inner-altar.html">Altar</a>
+        <a href="vault.html">Vault</a>
+        <a href="atelier.html">Atelier</a>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="kicker">Not advice · alignment</p>
+          <h1>Oracle Mirror</h1>
+          <p class="lead">
+            Choose what you’re walking into. The mirror doesn’t flatter you. It confirms you.
+            Sexy doesn’t mean chaotic. Power doesn’t mean loud.
+          </p>
+        </div>
+        <div class="btnrow" style="justify-content:flex-end; align-items:center;">
+          <a class="btn" href="registry.html">Registry</a>
+          <a class="btn secondary" href="signal-room.html">Signals</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Set the Intention</h2>
+      <p>Pick a lane. Tell the truth. Generate your line. Save it if it hits.</p>
+
+      <div class="grid">
+        <div>
+          <label for="lane">Lane</label>
+          <select id="lane">
+            <option value="wealth">Wealth</option>
+            <option value="desire">Desire</option>
+            <option value="standards">Standards</option>
+            <option value="rebirth">Rebirth</option>
+          </select>
+
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option value="soft">Dangerous Soft</option>
+            <option value="royal">High Priestess</option>
+            <option value="velvet">Velvet Menace</option>
+            <option value="clean">Clean Authority</option>
+          </select>
+
+          <label for="name">Name (optional)</label>
+          <input id="name" placeholder="First name or title" />
+
+          <label for="boundary">One boundary you will protect</label>
+          <input id="boundary" placeholder="Example: I do not negotiate my time." />
+        </div>
+
+        <div>
+          <label for="desire">One desire you will pursue</label>
+          <input id="desire" placeholder="Example: I want money with peace." />
+
+          <label for="decision">One decision you will make today</label>
+          <textarea id="decision" placeholder="Example: I will stop texting people who drain me."></textarea>
+
+          <div class="btnrow">
+            <button class="btn" id="genBtn" type="button">Generate</button>
+            <button class="btn secondary" id="saveBtn" type="button">Save to Device</button>
+            <button class="btn secondary" id="copyBtn" type="button">Copy</button>
+          </div>
+          <div class="fine">This saves locally on your device. Quiet power. No database.</div>
+        </div>
+      </div>
+
+      <div class="output" id="output" style="display:none;">
+        <p class="quote" id="quote"></p>
+        <div class="sigil" id="sigil"></div>
+        <div class="fine" id="meta"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Saved Mirrors (this device)</h2>
+      <p class="fine">If you change phones, you change the archive. Tragic, but poetic.</p>
+      <div class="btnrow">
+        <button class="btn secondary" id="loadBtn" type="button">Load Saved</button>
+        <button class="btn secondary" id="clearBtn" type="button">Clear Saved</button>
+      </div>
+      <div class="output" id="saved" style="display:none;"></div>
+    </section>
+
+    <footer>
+      © Oracle Mirror · Your Jaded Secrets
+      <div class="fine">You don’t need permission.</div>
+    </footer>
+  </div>
+
+  <script>
+    const KEY = "yjsOracleMirrors";
+
+    const lane = document.getElementById("lane");
+    const tone = document.getElementById("tone");
+    const nameEl = document.getElementById("name");
+    const boundary = document.getElementById("boundary");
+    const desire = document.getElementById("desire");
+    const decision = document.getElementById("decision");
+
+    const output = document.getElementById("output");
+    const quoteEl = document.getElementById("quote");
+    const sigilEl = document.getElementById("sigil");
+    const metaEl = document.getElementById("meta");
+
+    const saved = document.getElementById("saved");
+
+    function norm(v){ return (v||"").trim(); }
+    function sigil(){
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      let out = "";
+      for(let i=0;i<8;i++) out += chars[Math.floor(Math.random()*chars.length)];
+      return "MIRROR-" + out;
+    }
+
+    const templates = {
+      wealth: {
+        soft: [
+          "My wealth is soft, steady, and inevitable. I stop begging. I start collecting.",
+          "I choose money that doesn’t cost my peace. I let it come clean."
+        ],
+        royal: [
+          "I move like a High Priestess with receipts. Wealth follows the standard I set.",
+          "I do not chase. I require. Prosperity responds."
+        ],
+        velvet: [
+          "I keep my power velvet and my results loud. Wealth bends toward discipline.",
+          "I smile gently. I mean it. Money learns my name."
+        ],
+        clean: [
+          "I make clean decisions that produce rich outcomes. No noise. No leaks.",
+          "I protect my time like profit. I win quietly."
+        ]
+      },
+      desire: {
+        soft: [
+          "My desire is safe here. I choose heat with structure and pleasure with consent.",
+          "I let myself want. Then I act like someone who deserves it."
+        ],
+        royal: [
+          "I carry desire like a crown. I choose what touches me.",
+          "I am sensual and sovereign. I do not negotiate my standards."
+        ],
+        velvet: [
+          "I keep my pleasure private and my boundaries sharp. That’s the spell.",
+          "I do not perform for attention. I receive devotion."
+        ],
+        clean: [
+          "I want what I want, and I choose it responsibly. That’s power.",
+          "My body is not a battlefield. It’s a temple."
+        ]
+      },
+      standards: {
+        soft: [
+          "Soft doesn’t mean available. My standards are love in action.",
+          "I stop tolerating crumbs. I choose the full meal."
+        ],
+        royal: [
+          "My standards are sacred. I don’t explain them. I enforce them.",
+          "I am the gate. I decide what enters."
+        ],
+        velvet: [
+          "I smile. I decline. I keep my life expensive.",
+          "I am kind, not careless. That’s the difference."
+        ],
+        clean: [
+          "I cut what leaks. I keep what grows. Simple.",
+          "My boundaries are clear. My life improves."
+        ]
+      },
+      rebirth: {
+        soft: [
+          "I’m rebuilding with tenderness and teeth. This version of me is permanent.",
+          "I release what I outgrew, and I don’t look back for permission."
+        ],
+        royal: [
+          "I rise like ritual. I leave the old self sealed.",
+          "I turn endings into altars. I begin again on purpose."
+        ],
+        velvet: [
+          "I shed what doesn’t fit. I keep what shines. That’s rebirth.",
+          "I let the old story burn. I walk out glowing."
+        ],
+        clean: [
+          "I choose the next version of me and execute. No dramatics. Just change.",
+          "I move forward like a decision, not a debate."
+        ]
+      }
+    };
+
+    function buildLine(){
+      const L = lane.value;
+      const T = tone.value;
+      const options = (templates[L] && templates[L][T]) ? templates[L][T] : ["You don’t need permission."];
+      const line = options[Math.floor(Math.random()*options.length)];
+
+      const n = norm(nameEl.value);
+      const b = norm(boundary.value);
+      const d = norm(desire.value);
+      const dec = norm(decision.value);
+
+      const pieces = [];
+      if(n) pieces.push(n + ":");
+      pieces.push(line);
+      if(b) pieces.push("Boundary: " + b);
+      if(d) pieces.push("Desire: " + d);
+      if(dec) pieces.push("Decision: " + dec);
+
+      const final = pieces.join("  •  ");
+      const s = sigil();
+
+      quoteEl.textContent = final;
+      sigilEl.textContent = s;
+      metaEl.textContent = "Lane: " + L + " · Tone: " + T;
+
+      output.style.display = "block";
+      return { sigil: s, lane: L, tone: T, text: final, ts: new Date().toISOString() };
+    }
+
+    function getAll(){
+      try{ return JSON.parse(localStorage.getItem(KEY) || "[]"); }catch(e){ return []; }
+    }
+    function setAll(arr){
+      try{ localStorage.setItem(KEY, JSON.stringify(arr)); }catch(e){}
+    }
+
+    document.getElementById("genBtn").addEventListener("click", () => { try{ window.__yjsObs && window.__yjsObs.bump("oracle_generate"); }catch(e){} buildLine(); });
+
+    document.getElementById("saveBtn").addEventListener("click", () => { try{ window.__yjsObs && window.__yjsObs.bump("oracle_save"); }catch(e){}
+      if(output.style.display === "none") buildLine();
+      const item = { sigil: sigilEl.textContent, lane: lane.value, tone: tone.value, text: quoteEl.textContent, ts: new Date().toISOString() };
+      const all = getAll();
+      all.unshift(item);
+      setAll(all.slice(0, 25));
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      if(output.style.display === "none") buildLine();
+      try{
+        await navigator.clipboard.writeText(quoteEl.textContent + "\n" + sigilEl.textContent);
+      }catch(e){}
+    });
+
+    document.getElementById("loadBtn").addEventListener("click", () => {
+      const all = getAll();
+      if(!all.length){
+        saved.style.display = "block";
+        saved.innerHTML = "<p class='fine'>Nothing saved yet. Generate something that makes you sit up straight.</p>";
+        return;
+      }
+      saved.style.display = "block";
+      saved.innerHTML = all.map(x => (
+        "<div style='margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid rgba(42,36,26,.65);'>" +
+          "<div style='letter-spacing:.12em; text-transform:uppercase; font-size:12px; color:#d8c9a6;'>" + x.sigil + "</div>" +
+          "<div style='color:#bfb396; font-size:12px; margin:6px 0 8px;'>Lane: " + x.lane + " · Tone: " + x.tone + " · " + (x.ts || "").slice(0,19).replace("T"," ") + "</div>" +
+          "<div style='color:#e4dcc3; font-size:15px; line-height:1.4;'>" + x.text.replace(/</g,"&lt;") + "</div>" +
+        "</div>"
+      )).join("");
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      setAll([]);
+      saved.style.display = "block";
+      saved.innerHTML = "<p class='fine'>Cleared.</p>";
+    });
+  </script>
+
+  <script>
+    // Observatory counters (device-local). Not tracking people. Tracking signals.
+    (function(){
+      const KEY = "yjsObs";
+      function load(){ try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; } }
+      function save(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
+      const o = load();
+      const page = (location.pathname.split("/").pop() || "index.html");
+      o.pageViews = o.pageViews || {};
+      o.pageViews[page] = (o.pageViews[page] || 0) + 1;
+      o.lastSeen = new Date().toISOString();
+      o.lastPage = page;
+      save(o);
+      // expose tiny helper
+      window.__yjsObs = {
+        bump: function(evt){
+          const x = load();
+          x.events = x.events || {};
+          x.events[evt] = (x.events[evt] || 0) + 1;
+          x.lastEvent = evt;
+          x.lastSeen = new Date().toISOString();
+          save(x);
+        }
+      };
+    })();
+  </script>
+
+</body>
+</html>

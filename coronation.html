@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Coronation · YJS</title>
+<style>
+:root{
+  --bg:#050505;
+  --ink:#e4dcc3;
+  --muted:#bfb396;
+  --gold:#b89c59;
+  --red:#7b0f1f;
+  --line:#2a241a;
+  --radius:18px;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:40px 18px;
+  font-family:"Playfair Display", serif;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 600px at 20% 10%, rgba(123,15,31,.22), transparent 60%),
+    radial-gradient(700px 500px at 80% 70%, rgba(184,156,89,.14), transparent 62%),
+    linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+    var(--bg);
+}
+.wrap{ max-width:900px; margin:0 auto; }
+.panel{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:28px 24px;
+  background:rgba(0,0,0,.25);
+}
+h1{
+  font-size:38px;
+  line-height:1.1;
+  margin:0 0 18px;
+}
+p{
+  font-size:16px;
+  color:var(--muted);
+  margin:0 0 14px;
+}
+.truth{
+  border-left:3px solid var(--gold);
+  padding-left:14px;
+  margin:18px 0;
+}
+.truth strong{
+  color:var(--ink);
+}
+.btn{
+  display:inline-block;
+  margin-top:26px;
+  padding:14px 22px;
+  border-radius:14px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--ink);
+  font-size:13px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.btn:hover{
+  background:var(--gold);
+  color:#0b0b0b;
+}
+.after{
+  display:none;
+  margin-top:26px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+footer{
+  margin-top:24px;
+  font-size:12px;
+  color:#9b9078;
+  text-align:center;
+  letter-spacing:.1em;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel">
+    <h1>You don’t arrive here by accident.</h1>
+    <p>This isn’t a reward. It’s a recognition.</p>
+
+    <div class="truth">
+      <strong>Ownership.</strong>
+      <p>You do not wait to be chosen. You choose.</p>
+    </div>
+    <div class="truth">
+      <strong>Standards.</strong>
+      <p>You protect your energy like capital.</p>
+    </div>
+    <div class="truth">
+      <strong>Time.</strong>
+      <p>You move when it’s correct, not when it’s loud.</p>
+    </div>
+
+    <button class="btn" id="claim">I Claim My Authority</button>
+
+    <div class="after" id="after">
+      <p><strong>It’s done.</strong></p>
+      <p>Return to the world. Nothing here needs to prove itself.</p>
+      <a class="btn" href="index.html">Return to YJS</a>
+    </div>
+  </section>
+
+  <footer>© Coronation · YJS</footer>
+</div>
+
+<script>
+(function(){
+  const KEY = "yjsCoronated";
+  const btn = document.getElementById("claim");
+  const after = document.getElementById("after");
+
+  if(localStorage.getItem(KEY)){
+    btn.style.display = "none";
+    after.style.display = "block";
+  }
+
+  btn.addEventListener("click", function(){
+    try{
+      localStorage.setItem(KEY, "true");
+      if(window.__yjsObs && window.__yjsObs.bump){
+        window.__yjsObs.bump("coronation");
+      }
+    }catch(e){}
+    btn.style.display = "none";
+    after.style.display = "block";
+  });
+})();
+</script>
+</body>
+</html>

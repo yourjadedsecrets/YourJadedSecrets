@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gatekeeper · YJS</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(0,0,0,.66);
+      --ink:#e4dcc3;
+      --muted:#bfb396;
+      --gold:#b89c59;
+      --red:#7b0f1f;
+      --line:#2a241a;
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px 18px 60px;
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      background:
+        radial-gradient(950px 640px at 18% 12%, rgba(123,15,31,.24), transparent 60%),
+        radial-gradient(820px 560px at 82% 70%, rgba(184,156,89,.14), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+        var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(184,156,89,.28); }
+    a:hover{ border-bottom-color:var(--gold); }
+    .wrap{ max-width:1120px; margin:0 auto; }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0 18px;
+      border-bottom:1px solid rgba(42,36,26,.85);
+    }
+    .brand{ letter-spacing:.18em; font-weight:700; font-size:16px; text-transform:uppercase; }
+    .sub{ display:block; margin-top:6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); opacity:.9; }
+
+    nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding-top:2px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; }
+    nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
+
+    .panel{
+      margin-top:16px;
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      padding:16px;
+      background:rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:-90px -90px auto auto;
+      width:320px;
+      height:320px;
+      background: radial-gradient(circle at 30% 30%, rgba(184,156,89,.11), transparent 66%);
+      transform: rotate(14deg);
+      pointer-events:none;
+    }
+    .panel h1, .panel h2{
+      margin:0 0 10px;
+      position:relative;
+      z-index:1;
+    }
+    .panel h1{ font-size:34px; line-height:1.1; }
+    .panel h2{ font-size:13px; letter-spacing:.16em; text-transform:uppercase; }
+    .panel p{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:14px;
+      position:relative;
+      z-index:1;
+    }
+    label{
+      display:block;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:12px 0 8px;
+      position:relative;
+      z-index:1;
+    }
+    input, textarea{
+      width:100%;
+      border:1px solid rgba(184,156,89,.45);
+      background: rgba(0,0,0,.35);
+      color:var(--ink);
+      padding:12px 12px;
+      border-radius:12px;
+      outline:none;
+      font-family:inherit;
+      font-size:14px;
+      position:relative;
+      z-index:1;
+    }
+    textarea{ min-height:120px; resize:vertical; }
+    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; position:relative; z-index:1; }
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-block;
+    }
+    .btn:hover{ background:var(--gold); color:#0b0b0b; }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+      background: rgba(0,0,0,.14);
+    }
+    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
+
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(184,156,89,.35);
+      color:#d8c9a6;
+      font-size:11px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      background: rgba(0,0,0,.16);
+    }
+
+    .out{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(184,156,89,.28);
+      background: rgba(0,0,0,.18);
+      position:relative;
+      z-index:1;
+      display:none;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      color:#d8c9a6;
+    }
+    .fine{ font-size:12px; color:#9b9078; letter-spacing:.06em; text-transform:none; margin-top:10px; }
+    footer{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid rgba(42,36,26,.85);
+      color:#9b9078;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">Your Jaded Secrets</div>
+        <span class="sub">Gatekeeper · phrase rotation + midnight message</span>
+      </div>
+      <nav>
+        <a href="ledger.html">Ledger</a>
+        <a href="signal-room.html">Signals</a>
+        <a href="vault.html">Vault</a>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <h1>Gatekeeper</h1>
+      <p>
+        This page creates a “vault settings” blob and stores it in <code>localStorage</code> on this device.
+        It’s a control panel for you, not a server. If you want global control later, we add a backend.
+      </p>
+      <p class="fine">Key: <code>yjsVaultSettings</code></p>
+
+      <h2>Rotate Phrases</h2>
+      <p>Enter phrases, one per line. The Vault will accept any of them.</p>
+      <label for="phrases">Phrases</label>
+      <textarea id="phrases" placeholder="PRIESTESS&#10;HIGH PRIESTESS&#10;DANGEROUS SOFT"></textarea>
+
+      <h2 style="margin-top:16px;">Midnight Window</h2>
+      <p>Local device time. Default is 11:55 PM → 12:15 AM.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <label for="start">Start (HH:MM, 24h)</label>
+          <input id="start" placeholder="23:55" />
+        </div>
+        <div>
+          <label for="end">End (HH:MM, 24h)</label>
+          <input id="end" placeholder="00:15" />
+        </div>
+      </div>
+
+      <h2 style="margin-top:16px;">Closed Message</h2>
+      <p>What they see when it’s not open.</p>
+      <label for="closedMsg">Closed Message</label>
+      <textarea id="closedMsg" placeholder="Closed. Come back at 11:55 PM. New doors appear without announcement."></textarea>
+
+      <div class="btnrow">
+        <button class="btn" id="save" type="button">Save Settings</button>
+        <button class="btn secondary" id="load" type="button">Load Settings</button>
+        <button class="btn secondary" id="clear" type="button">Clear Settings</button>
+      </div>
+
+      <div class="out" id="out"></div>
+    </section>
+
+    <footer>
+      © Gatekeeper · YJS
+      <div class="fine">If you share this page, you’re doing it wrong.</div>
+    </footer>
+  </div>
+
+  <script>
+    const KEY = "yjsVaultSettings";
+    const phrasesEl = document.getElementById("phrases");
+    const startEl = document.getElementById("start");
+    const endEl = document.getElementById("end");
+    const closedEl = document.getElementById("closedMsg");
+    const out = document.getElementById("out");
+
+    function show(msg){
+      out.style.display = "block";
+      out.textContent = msg;
+    }
+
+    function parseTime(t){
+      const m = (t||"").trim().match(/^(\d{1,2}):(\d{2})$/);
+      if(!m) return null;
+      const hh = Math.max(0, Math.min(23, parseInt(m[1],10)));
+      const mm = Math.max(0, Math.min(59, parseInt(m[2],10)));
+      return hh*60 + mm;
+    }
+
+    function save(){
+      const phrases = (phrasesEl.value || "").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+      const s = parseTime(startEl.value || "23:55");
+      const e = parseTime(endEl.value || "00:15");
+      const closedMsg = (closedEl.value || "").trim();
+
+      if(!phrases.length){
+        show("Add at least one phrase.");
+        return;
+      }
+      if(s === null || e === null){
+        show("Time format must be HH:MM.");
+        return;
+      }
+
+      const blob = { phrases, start: s, end: e, closedMsg, savedAt: new Date().toISOString() };
+      try{ localStorage.setItem(KEY, JSON.stringify(blob)); }catch(e){}
+      show("Saved. This device now enforces your settings.");
+    }
+
+    function load(){
+      try{
+        const raw = localStorage.getItem(KEY);
+        if(!raw){
+          show("No settings saved on this device.");
+          return;
+        }
+        const blob = JSON.parse(raw);
+        phrasesEl.value = (blob.phrases || []).join("\n");
+        startEl.value = minsToTime(blob.start ?? 1435);
+        endEl.value = minsToTime(blob.end ?? 15);
+        closedEl.value = blob.closedMsg || "Closed. Come back at 11:55 PM. New doors appear without announcement.";
+        show("Loaded settings saved at " + (blob.savedAt || "unknown") + ".");
+      }catch(e){
+        show("Couldn’t load settings.");
+      }
+    }
+
+    function clear(){
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      show("Cleared settings on this device.");
+    }
+
+    function minsToTime(m){
+      m = Number(m||0);
+      const hh = String(Math.floor(m/60)%24).padStart(2,"0");
+      const mm = String(Math.floor(m%60)).padStart(2,"0");
+      return hh + ":" + mm;
+    }
+
+    document.getElementById("save").addEventListener("click", save);
+    document.getElementById("load").addEventListener("click", load);
+    document.getElementById("clear").addEventListener("click", clear);
+
+    // defaults
+    phrasesEl.value = "PRIESTESS\nHIGH PRIESTESS\nDANGEROUS SOFT\nYOU DONT NEED PERMISSION";
+    startEl.value = "23:55";
+    endEl.value = "00:15";
+    closedEl.value = "Closed. Come back at 11:55 PM (local time). New doors appear without announcement.";
+  </script>
+
+  <script>
+    // Observatory counters (device-local). Not tracking people. Tracking signals.
+    (function(){
+      const KEY = "yjsObs";
+      function load(){ try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; } }
+      function save(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
+      const o = load();
+      const page = (location.pathname.split("/").pop() || "index.html");
+      o.pageViews = o.pageViews || {};
+      o.pageViews[page] = (o.pageViews[page] || 0) + 1;
+      o.lastSeen = new Date().toISOString();
+      o.lastPage = page;
+      save(o);
+      // expose tiny helper
+      window.__yjsObs = {
+        bump: function(evt){
+          const x = load();
+          x.events = x.events || {};
+          x.events[evt] = (x.events[evt] || 0) + 1;
+          x.lastEvent = evt;
+          x.lastSeen = new Date().toISOString();
+          save(x);
+        }
+      };
+    })();
+  </script>
+
+</body>
+</html>
