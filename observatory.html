@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Observatory · YJS</title>
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:rgba(0,0,0,.66);
+      --ink:#e4dcc3;
+      --muted:#bfb396;
+      --gold:#b89c59;
+      --red:#7b0f1f;
+      --line:#2a241a;
+      --radius:18px;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      min-height:100vh;
+      padding:24px 18px 60px;
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      background:
+        radial-gradient(950px 640px at 18% 12%, rgba(123,15,31,.24), transparent 60%),
+        radial-gradient(820px 560px at 82% 70%, rgba(184,156,89,.14), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.92)),
+        var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; border-bottom:1px solid rgba(184,156,89,.28); }
+    a:hover{ border-bottom-color:var(--gold); }
+    .wrap{ max-width:1120px; margin:0 auto; }
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0 18px;
+      border-bottom:1px solid rgba(42,36,26,.85);
+    }
+    .brand{ letter-spacing:.18em; font-weight:700; font-size:16px; text-transform:uppercase; }
+    .sub{ display:block; margin-top:6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); opacity:.9; }
+    nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding-top:2px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{ border-bottom:1px solid transparent; padding-bottom:2px; }
+    nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
+
+    .panel{
+      margin-top:16px;
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      padding:16px;
+      background:rgba(0,0,0,.22);
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+    }
+    .panel::before{
+      content:"";
+      position:absolute;
+      inset:-90px -90px auto auto;
+      width:320px;
+      height:320px;
+      background: radial-gradient(circle at 30% 30%, rgba(184,156,89,.11), transparent 66%);
+      transform: rotate(14deg);
+      pointer-events:none;
+    }
+    h1{ margin:0 0 10px; font-size:34px; line-height:1.1; position:relative; z-index:1; }
+    h2{ margin:0 0 10px; font-size:13px; letter-spacing:.16em; text-transform:uppercase; position:relative; z-index:1; }
+    p{ margin:0 0 10px; color:var(--muted); font-size:14px; position:relative; z-index:1; }
+    .grid{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      position:relative;
+      z-index:1;
+    }
+    @media (max-width: 920px){ .grid{ grid-template-columns:1fr; } }
+
+    .card{
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      padding:14px;
+      background:rgba(0,0,0,.20);
+    }
+    .card strong{
+      display:block;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin-bottom:8px;
+      color:var(--ink);
+    }
+    .big{
+      font-size:28px;
+      letter-spacing:.02em;
+      color:#f0e6cf;
+      line-height:1;
+      margin:6px 0 8px;
+    }
+    .mini{ font-size:12px; color:#9b9078; letter-spacing:.06em; }
+
+    .table{
+      margin-top:12px;
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      overflow:hidden;
+      position:relative;
+      z-index:1;
+    }
+    table{ width:100%; border-collapse:collapse; }
+    th, td{
+      padding:10px 12px;
+      border-bottom:1px solid rgba(42,36,26,.65);
+      font-size:13px;
+      color:var(--muted);
+      text-align:left;
+    }
+    th{
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      font-size:11px;
+      color:#d8c9a6;
+      background: rgba(0,0,0,.20);
+    }
+    tr:last-child td{ border-bottom:none; }
+
+    .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; position:relative; z-index:1; }
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-block;
+    }
+    .btn:hover{ background:var(--gold); color:#0b0b0b; }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+      background: rgba(0,0,0,.14);
+    }
+    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      color:#d8c9a6;
+    }
+    footer{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid rgba(42,36,26,.85);
+      color:#9b9078;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+    .fine{ font-size:12px; color:#9b9078; letter-spacing:.06em; text-transform:none; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">Your Jaded Secrets</div>
+        <span class="sub">Observatory · device-local signals</span>
+      </div>
+      <nav>
+        <a href="gatekeeper.html">Gatekeeper</a>
+        <a href="ledger.html">Ledger</a>
+        <a href="vault.html">Vault</a>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <h1>The Observatory</h1>
+      <p>
+        This shows signals stored on <em>this device</em> only. No cookies. No external analytics.
+        If you want global stats later, we add a backend. Today, you get clean intel.
+      </p>
+      <p class="fine">Storage key: <code>yjsObs</code></p>
+
+      <div class="grid">
+        <div class="card">
+          <strong>Vault Unlock Attempts</strong>
+          <div class="big" id="v_attempts">0</div>
+          <div class="mini">How many times this device tried to unlock.</div>
+        </div>
+        <div class="card">
+          <strong>Vault Seals</strong>
+          <div class="big" id="v_seals">0</div>
+          <div class="mini">How many times this device sealed the Trial.</div>
+        </div>
+        <div class="card">
+          <strong>Oracle Generates</strong>
+          <div class="big" id="o_gen">0</div>
+          <div class="mini">How many lines were generated here.</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <strong>Vault Rewards Opened</strong>
+          <div class="big" id="v_reward">0</div>
+          <div class="mini">How often the reward page opened.</div>
+        </div>
+        <div class="card">
+          <strong>Gift Claims</strong>
+          <div class="big" id="v_gift">0</div>
+          <div class="mini">How often the gift link was clicked.</div>
+        </div>
+        <div class="card">
+          <strong>Registry Actions</strong>
+          <div class="big" id="r_actions">0</div>
+          <div class="mini">Mail clicks + form submits (if present).</div>
+        </div>
+      </div>
+
+      <div class="table">
+        <table>
+          <thead>
+            <tr><th>Page</th><th>Views</th></tr>
+          </thead>
+          <tbody id="pv"></tbody>
+        </table>
+      </div>
+
+      <div class="btnrow">
+        <button class="btn secondary" id="refresh" type="button">Refresh</button>
+        <button class="btn secondary" id="reset" type="button">Reset This Device</button>
+        <a class="btn secondary" href="signal-room.html">Signal Room</a>
+      </div>
+
+      <p class="fine">Reset clears <code>yjsObs</code> only. It does not touch Vault sigils or other keys.</p>
+    </section>
+
+    <footer>
+      © Observatory · YJS
+      <div class="fine">Quiet power. Loud results.</div>
+    </footer>
+  </div>
+
+  <script>
+    const KEY = "yjsObs";
+
+    function load(){
+      try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return {}; }
+    }
+
+    function get(o, path, fallback){
+      const parts = path.split(".");
+      let cur = o;
+      for(const p of parts){
+        if(cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
+        else return fallback;
+      }
+      return (cur === undefined || cur === null) ? fallback : cur;
+    }
+
+    function render(){
+      const o = load();
+      const events = o.events || {};
+      document.getElementById("v_attempts").textContent = events.vault_unlock_attempt || 0;
+      document.getElementById("v_seals").textContent = events.vault_sealed || 0;
+      document.getElementById("o_gen").textContent = events.oracle_generate || 0;
+      document.getElementById("v_reward").textContent = events.vault_reward_open || 0;
+      document.getElementById("v_gift").textContent = events.vault_gift_claim || 0;
+
+      const r = (events.registry_submit || 0) + (events.registry_mailto || 0);
+      document.getElementById("r_actions").textContent = r;
+
+      const pv = o.pageViews || {};
+      const rows = Object.entries(pv).sort((a,b) => (b[1]||0)-(a[1]||0));
+      const tb = document.getElementById("pv");
+      tb.innerHTML = rows.map(([k,v]) => "<tr><td>"+escapeHtml(k)+"</td><td>"+(v||0)+"</td></tr>").join("") || "<tr><td colspan='2'>No pageviews yet.</td></tr>";
+    }
+
+    function escapeHtml(s){
+      return (s||"").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+
+    document.getElementById("refresh").addEventListener("click", render);
+    document.getElementById("reset").addEventListener("click", () => {
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
