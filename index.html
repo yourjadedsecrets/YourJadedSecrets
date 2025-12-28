@@ -2,19 +2,458 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your Jaded Secrets</title>
+
   <style>
-    body {
-      background: #111;
-      color: #eee;
-      font-family: serif;
-      padding: 4rem;
+    :root{
+      --bg:#070707;
+      --panel:rgba(0,0,0,.62);
+      --ink:#e4dcc3;
+      --muted:#c8bb9a;
+      --gold:#b89c59;
+      --line:#2a241a;
+      --radius:16px;
+      --max:1120px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
     }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(184,156,89,.08), transparent 55%),
+                  radial-gradient(900px 600px at 85% 10%, rgba(228,220,195,.06), transparent 55%),
+                  var(--bg);
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      line-height:1.6;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 76px;
+    }
+
+    header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      padding:10px 0 18px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .brand{
+      letter-spacing:.18em;
+      font-weight:700;
+      font-size:18px;
+      text-transform:uppercase;
+    }
+    .subbrand{
+      display:block;
+      margin-top:6px;
+      font-size:12px;
+      letter-spacing:.12em;
+      color:var(--muted);
+      text-transform:uppercase;
+      opacity:.9;
+    }
+
+    nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      padding-top:2px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      border-bottom:1px solid transparent;
+      padding-bottom:2px;
+    }
+    nav a:hover{ border-bottom-color:var(--gold); color:var(--ink); }
+
+    .hero{
+      margin-top:22px;
+      min-height:560px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.85)),
+        url("images/01-cosmos.jpg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:flex-end;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(700px 480px at 30% 25%, rgba(184,156,89,.18), transparent 62%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      width:100%;
+      padding:26px 22px 22px;
+      background:linear-gradient(180deg, transparent, rgba(0,0,0,.72));
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-card{
+      max-width:820px;
+      background:var(--panel);
+      border:1px solid var(--gold);
+      border-radius:var(--radius);
+      padding:18px 18px 16px;
+      backdrop-filter: blur(6px);
+    }
+
+    .kicker{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.06;
+      letter-spacing:.02em;
+    }
+
+    .lead{
+      margin:0 0 14px;
+      font-size:15px;
+      color:var(--ink);
+      opacity:.92;
+    }
+
+    .cta-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:11px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-block;
+    }
+    .btn:hover{
+      background:var(--gold);
+      color:#0b0b0b;
+    }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+    }
+    .btn.secondary:hover{
+      background:#19140d;
+      color:var(--ink);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      margin-top:18px;
+    }
+    @media (max-width: 920px){
+      .grid{ grid-template-columns:1fr; }
+    }
+
+    .panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      background:rgba(255,255,255,.02);
+      box-shadow: 0 10px 28px rgba(0,0,0,.35);
+    }
+    .panel h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .panel p{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .feature{
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background-size:cover;
+      background-position:center;
+      min-height:360px;
+      position:relative;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .feature::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.76));
+    }
+    .feature .label{
+      position:absolute;
+      bottom:12px; left:12px; right:12px;
+      z-index:1;
+      background:rgba(0,0,0,.55);
+      border:1px solid var(--gold);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--ink);
+    }
+
+    .gallery{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 920px){ .gallery{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px){ .gallery{ grid-template-columns: 1fr; } }
+
+    .tile{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:#0f0f0f;
+      position:relative;
+      min-height:190px;
+      background-size:cover;
+      background-position:center;
+      cursor:pointer;
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+    .tile::after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.62));
+      opacity:.86;
+      transition:opacity .2s ease;
+    }
+    .tile:hover::after{ opacity:.70; }
+
+    .tile span{
+      position:absolute;
+      left:12px; bottom:10px;
+      z-index:1;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--ink);
+      opacity:.95;
+    }
+
+    footer{
+      margin-top:26px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:#9b9078;
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+
+    .fine{
+      font-size:12px;
+      color:#9b9078;
+      letter-spacing:.06em;
+      text-transform:none;
+      margin-top:8px;
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.88);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      z-index:9999;
+    }
+    .lightbox.open{ display:flex; }
+    .lightbox img{
+      max-width:min(1200px, 95vw);
+      max-height:85vh;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#000;
+      box-shadow: var(--shadow);
+    }
+    .close{
+      position:absolute;
+      top:16px; right:16px;
+      border:1px solid var(--gold);
+      background:rgba(0,0,0,.45);
+      color:var(--ink);
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .close:hover{ background:var(--gold); color:#0b0b0b; }
   </style>
 </head>
+
 <body>
-  <h1>Your Jaded Secrets</h1>
-  <p>If you can read this, the site is working.</p>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">Your Jaded Secrets</div>
+        <span class="subbrand">Private wing · Murphy Made</span>
+      </div>
+
+      <nav>
+        <a href="#threshold">Threshold</a>
+        <a href="#manifesto">Manifesto</a>
+        <a href="#gallery">Gallery</a>
+        <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="threshold">
+      <div class="hero-inner">
+        <div class="hero-card">
+          <p class="kicker">If you’re here, you were meant to be.</p>
+          <h1>You don’t need permission.</h1>
+          <p class="lead">
+            Dangerous soft. High priestess energy. Luxurious menace. This is where private work becomes future offerings.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="#manifesto">Cross the Threshold</a>
+            <a class="btn secondary" href="#gallery">Witness the Artifacts</a>
+            <a class="btn secondary" href="https://yourjadedsecrets.github.io/YourJadedSecrets/" target="_blank" rel="noopener noreferrer">Open Live Site</a>
+            <a class="btn secondary" href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
+          </div>
+          <p class="fine">New doors appear without announcement.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="manifesto">
+      <div class="panel">
+        <h2>Manifesto</h2>
+        <p><strong>I am the creator of my reality.</strong> I do not negotiate with limits.</p>
+        <p>I move with softness that doesn’t ask. I keep my luxury private until it’s irreversible.</p>
+        <p>This space holds drafts, drops, rituals, and future physical goods. The point is not to be liked. The point is to be inevitable.</p>
+
+        <div class="cta-row">
+          <a class="btn" href="mailto:cydniet@gmail.com?subject=YJS%20Entry%20Request&body=Name:%0AWhy%20I%20found%20this:%0AWhat%20I%20want%20to%20build:%0A" target="_blank" rel="noopener noreferrer">Request Access</a>
+          <a class="btn secondary" href="#gallery">Skip to Gallery</a>
+          <a class="btn secondary" href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Back to Midnight Garden</a>
+        </div>
+      </div>
+
+      <div class="feature" style="background-image:url('images/02-angel-demon.jpg');">
+        <div class="label">Dangerous soft, still in control</div>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top:16px;">
+      <h2>Offerings in the Making</h2>
+      <p>
+        • Private ritual prompts + “spin-a-nite” experiences<br/>
+        • Body-safe candles (made by you, not factory sadness)<br/>
+        • Dark feminine wealth systems: planners, trackers, altar dashboards<br/>
+        • Midnight unlock moments for those who are ready
+      </p>
+      <p class="fine">New doors appear without announcement.</p>
+    </section>
+
+    <section class="panel" id="gallery" style="margin-top:16px;">
+      <h2>Gallery</h2>
+      <p>Click any image to open it.</p>
+
+      <div class="gallery">
+        <div class="tile" data-full="images/03-heels-table.jpg" style="background-image:url('images/03-heels-table.jpg');"><span>Luxury, unbothered</span></div>
+        <div class="tile" data-full="images/04-harness.jpg" style="background-image:url('images/04-harness.jpg');"><span>Consent + control</span></div>
+        <div class="tile" data-full="images/05-jessica.jpg" style="background-image:url('images/05-jessica.jpg');"><span>Femme myth</span></div>
+        <div class="tile" data-full="images/06-ace.jpg" style="background-image:url('images/06-ace.jpg');"><span>The hand I choose</span></div>
+        <div class="tile" data-full="images/07-apple-smoke.jpg" style="background-image:url('images/07-apple-smoke.jpg');"><span>Temptation, refined</span></div>
+        <div class="tile" data-full="images/08-waterfall.jpg" style="background-image:url('images/08-waterfall.jpg');"><span>Abundance has gravity</span></div>
+        <div class="tile" data-full="images/09-creator.jpg" style="background-image:url('images/09-creator.jpg');"><span>Reality maker</span></div>
+        <div class="tile" data-full="images/10-lion.jpg" style="background-image:url('images/10-lion.jpg');"><span>Soft, not safe</span></div>
+        <div class="tile" data-full="images/01-cosmos.jpg" style="background-image:url('images/01-cosmos.jpg');"><span>Reach me</span></div>
+      </div>
+    </section>
+
+    <footer>
+      © Your Jaded Secrets · Murphy Made
+      <div class="fine">Quiet power. Loud results.</div>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="close" id="closeBtn" type="button">Close</button>
+    <img id="lightboxImg" alt="Expanded image" />
+  </div>
+
+  <script>
+    const tiles = document.querySelectorAll(".tile");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("closeBtn");
+
+    function openLightbox(src){
+      lightboxImg.src = src;
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden","false");
+    }
+
+    function closeLightbox(){
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden","true");
+      lightboxImg.src = "";
+    }
+
+    tiles.forEach(tile => {
+      tile.addEventListener("click", () => openLightbox(tile.dataset.full));
+    });
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if(e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeLightbox();
+    });
+  </script>
 </body>
 </html>
-
