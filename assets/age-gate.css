@@ -1,0 +1,74 @@
+/* YJS Age Gate (minimal, dramatic, not annoying) */
+.yjs-agegate{
+  position:fixed; inset:0;
+  background: radial-gradient(900px 600px at 30% 20%, rgba(184,156,89,.12), transparent 60%),
+              radial-gradient(800px 520px at 75% 15%, rgba(210,38,62,.10), transparent 58%),
+              rgba(0,0,0,.88);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  z-index:99999;
+}
+.yjs-agegate.open{ display:flex; }
+.yjs-agegate__card{
+  width:min(740px, 96vw);
+  border:1px solid rgba(184,156,89,.55);
+  border-radius:18px;
+  background: rgba(6,6,6,.86);
+  box-shadow: 0 22px 80px rgba(0,0,0,.65);
+  overflow:hidden;
+}
+.yjs-agegate__hero{
+  min-height:180px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.82)),
+    url("../images/priestess-collage.png");
+  background-size:cover;
+  background-position:center;
+  border-bottom:1px solid rgba(184,156,89,.22);
+}
+.yjs-agegate__body{ padding:18px 18px 16px; color:#e4dcc3; font-family:"Playfair Display", serif; }
+.yjs-agegate__kicker{
+  margin:0 0 8px;
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(228,220,195,.78);
+}
+.yjs-agegate__title{
+  margin:0 0 8px;
+  font-size:28px;
+  line-height:1.1;
+}
+.yjs-agegate__copy{
+  margin:0 0 14px;
+  color:rgba(228,220,195,.86);
+  font-size:14px;
+  line-height:1.6;
+}
+.yjs-agegate__row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+.yjs-agegate__btn{
+  appearance:none;
+  border:1px solid #b89c59;
+  background:transparent;
+  color:#e4dcc3;
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.yjs-agegate__btn:hover{ background:#b89c59; color:#0b0b0b; }
+.yjs-agegate__btn.secondary{
+  border-color:rgba(184,156,89,.35);
+  color:rgba(228,220,195,.72);
+}
+.yjs-agegate__btn.secondary:hover{ background:#1a130b; color:#e4dcc3; }
+.yjs-agegate__fine{
+  margin-top:10px;
+  font-size:12px;
+  color:rgba(228,220,195,.62);
+  letter-spacing:.04em;
+}
