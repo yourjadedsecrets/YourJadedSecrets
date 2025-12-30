@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gatekeeper · YJS</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#050505;
       --ink:#e4dcc3;
@@ -111,7 +115,9 @@
 <body>
   <div class="wrap">
     <header>
-      <div>
+      
+  <meta name="yjs-min-age" content="18" />
+<div>
         <div class="brand">Your Jaded Secrets</div>
         <span class="sub">Gatekeeper · settings (device-local)</span>
       </div>
@@ -252,5 +258,7 @@
 
     load();
   </script>
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>

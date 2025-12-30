@@ -7,11 +7,15 @@ If you already replaced inner-chamber.html in v29, replace it again with this on
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inner Chamber · Your Jaded Secrets</title>
 
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#070707;
       --panel:rgba(0,0,0,.62);
@@ -181,7 +185,9 @@ If you already replaced inner-chamber.html in v29, replace it again with this on
 <body>
   <div class="wrap">
     <header>
-      <div>
+      
+  <meta name="yjs-min-age" content="18" />
+<div>
         <div class="brand">Your Jaded Secrets</div>
         <span class="subbrand">Inner Chamber · Phrase Gate</span>
       </div>
@@ -233,7 +239,7 @@ If you already replaced inner-chamber.html in v29, replace it again with this on
             <p>We build the life. Then we decorate it.</p>
 
             <div class="cta-row">
-              <a class="btn secondary" href="inner-altar.html">Proceed (Inner Altar)</a>
+              <a class="btn secondary" href="inner-altar.html" data-min-age="21">Proceed (Inner Altar)</a>
               <a class="btn secondary" href="index.html#gallery">Witness the Artifacts</a>
             </div>
           </div>
@@ -277,5 +283,7 @@ If you already replaced inner-chamber.html in v29, replace it again with this on
       }
     });
   </script>
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>

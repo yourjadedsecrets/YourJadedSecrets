@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="21" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Altar · Inner Chamber</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#050505;
       --panel:rgba(0,0,0,.62);
@@ -213,7 +217,8 @@
   <div class="wrap">
     <div class="card">
       <div class="top">
-        <p class="kicker">Unlocked · keep it quiet</p>
+        <div data-owner-only="true">
+<p class="kicker">Unlocked · keep it quiet</p>
         <h1>The Altar</h1>
         <p class="lead">
           This is where drops are staged before they exist in public. Nothing here is meant for everybody.
@@ -239,16 +244,7 @@
               <h3>Priestess Prompt Set</h3>
               <p>Private writing prompts that turn longing into leadership.</p>
               <div class="meta">Status: draft · Format: PDF</div>
-              
-        <div class="rule">
-          <strong>How to Publish a Drop</strong>
-          <p>
-            Put your file in <code>/drops</code>, then point a button to it.<br/>
-            Example: <code>href="drops/priestess-prompts.pdf"</code><br/>
-            GitHub Pages will serve it like any normal download.
-          </p>
-          <div class="fine">If it’s in the repo, it’s accessible. Keep that in mind.</div>
-        </div>
+</div>
 
 
         <div class="rule"><strong>The Atelier</strong><p>Physical goods in the making. Quiet standards.</p><div class="btnrow"><a class="btn secondary" href="atelier.html">Enter the Atelier</a></div></div>
@@ -345,6 +341,21 @@
   }catch(e){}
 })();
 </script>
+
+  <script>
+    (function(){
+      function isOwner(){
+        try{ return !!localStorage.getItem("yjsOwner") || !!localStorage.getItem("yjsCoronated"); }catch(e){ return false; }
+      }
+      const ok = isOwner();
+      document.querySelectorAll('[data-owner-only="true"]').forEach(el=>{
+        if(!ok) el.style.display = "none";
+      });
+    })();
+  </script>
+
+
+  <script src="assets/age-gate.js"></script>
 </body>
 
 </html>

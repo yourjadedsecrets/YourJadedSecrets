@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ledger · YJS</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#050505;
       --panel:rgba(0,0,0,.68);
@@ -199,7 +203,7 @@
             <a href="gatekeeper.html">Gatekeeper</a>
         <a href="observatory.html">Observatory</a> ·
         <a href="observatory.html">Observatory</a> ·
-            <a href="inner-altar.html">Altar</a> ·
+            <a href="inner-altar.html" data-min-age="21">Altar</a> ·
             <a href="index.html">YJS</a>
           </p>
         </div>
@@ -306,5 +310,7 @@
     })();
   </script>
 
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>
