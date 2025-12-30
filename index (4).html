@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Jaded Secrets</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #070707;
+      font-family: "Playfair Display", serif;
+      color: #e4dcc3;
+    }
+
+    header {
+      padding: 28px;
+      text-align: center;
+      border-bottom: 1px solid #2a241a;
+    }
+
+    nav a {
+      color: #e4dcc3;
+      text-decoration: none;
+      margin: 0 14px;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    nav a:hover {
+      color: #b89c59;
+    }
+
+    /* HERO IMAGE WITH FALLBACK STACK
+       (Browser uses the first image that exists. If the first 404s, it tries the next.) */
+    .hero {
+      min-height: 85vh;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.85)),
+        url("images/priestess-collage.png"),
+        url("images/inner_altar.png"),
+        url("images/high-priestess.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .hero-card {
+      max-width: 760px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid #b89c59;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    }
+
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c8bb9a;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin: 0 0 12px;
+      line-height: 1.05;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: #e4dcc3;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      border: 1px solid #b89c59;
+      background: transparent;
+      color: #e4dcc3;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin: 6px;
+    }
+
+    .btn:hover {
+      background: #b89c59;
+      color: #070707;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      font-size: 12px;
+      color: #9b9078;
+      border-top: 1px solid #2a241a;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div style="letter-spacing:.18em; font-size:18px;">Your Jaded Secrets</div>
+  <div style="font-size:12px; color:#c8bb9a; margin-top:6px;">
+    Private Wing · Murphy Made
+  </div>
+  <nav style="margin-top:14px;">
+    <a href="inner-altar.html">Inner Altar</a>
+    <a href="atelier.html">The Atelier</a>
+    <a href="oracle-mirror.html">Oracle Mirror</a>
+    <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="kicker">If you’re here, you were meant to be.</div>
+    <h1>You don’t need permission.</h1>
+    <p class="lead">
+      Dangerous soft. High Priestess energy. Luxurious menace.
+      This is where private power becomes inevitable.
+    </p>
+    <a href="inner-altar.html"><button class="btn">Enter the Inner Altar</button></a>
+    <a href="https://yourjadedsecrets.github.io/YourJadedSecrets/" target="_blank" rel="noopener noreferrer">
+      <button class="btn">Open Live Site</button>
+    </a>
+  </div>
+</section>
+
+<footer>
+  © Your Jaded Secrets · Murphy Made
+  <div style="margin-top:8px;">Quiet power. Loud results.</div>
+</footer>
+
+</body>
+</html>
