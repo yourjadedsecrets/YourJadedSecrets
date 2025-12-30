@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vault Reward · Your Jaded Secrets</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#050505;
       --panel:rgba(0,0,0,.66);
@@ -149,7 +153,7 @@
           </p>
           <div class="btnrow">
             <a class="btn" href="drops/vault-gift.txt" download id="claimGift">Claim Gift</a>
-            <a class="btn secondary" href="inner-altar.html">Return to the Altar</a>
+            <a class="btn secondary" href="inner-altar.html" data-min-age="21">Return to the Altar</a>
             <a class="btn secondary" href="signal-room.html">Signal Room</a>
           </div>
         </div>
@@ -240,5 +244,7 @@
     })();
   </script>
 
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>

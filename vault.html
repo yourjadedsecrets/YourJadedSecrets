@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Vault · Your Jaded Secrets</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#050505;
       --panel:rgba(0,0,0,.66);
@@ -244,7 +248,7 @@
           </div>
           <div class="btnrow">
             <button class="btn" id="unlockBtn" type="button">Unlock</button>
-            <a class="btn secondary" href="inner-altar.html">Return to the Altar</a>
+            <a class="btn secondary" href="inner-altar.html" data-min-age="21">Return to the Altar</a>
             <a class="btn secondary" href="index.html">Back to YJS</a>
           </div>
           <div class="status" id="status"></div>
@@ -498,6 +502,8 @@
   }catch(e){}
 })();
 </script>
+
+  <script src="assets/age-gate.js"></script>
 </body>
 
 </html>

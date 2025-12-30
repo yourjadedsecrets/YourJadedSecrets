@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Request Entry · Your Jaded Secrets</title>
 
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     :root{
       --bg:#070707;
       --panel:rgba(0,0,0,.62);
@@ -162,7 +166,9 @@
 <body>
   <div class="wrap">
     <header>
-      <div>
+      
+  <meta name="yjs-min-age" content="18" />
+<div>
         <div class="brand">Your Jaded Secrets</div>
         <span class="subbrand">Request Entry · Private Wing</span>
       </div>
@@ -248,5 +254,7 @@
       window.location.href = "mailto:yourjadedsecrets@gmail.com?subject=" + subject + "&body=" + body;
     });
   </script>
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>

@@ -5,10 +5,14 @@ This file is only here to ensure the nav link works if you don’t.
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  
+  <meta name="yjs-min-age" content="18" />
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rooms · Your Jaded Secrets</title>
-  <style>
+  
+  <link rel="stylesheet" href="assets/age-gate.css" />
+<style>
     body{ margin:0; background:#070707; color:#e4dcc3; font-family:"Playfair Display", serif; }
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:980px; margin:0 auto; padding:28px 18px 70px; }
@@ -27,7 +31,9 @@ This file is only here to ensure the nav link works if you don’t.
 <body>
   <div class="wrap">
     <header>
-      <div class="brand">Your Jaded Secrets</div>
+      
+  <meta name="yjs-min-age" content="18" />
+<div class="brand">Your Jaded Secrets</div>
       <nav>
         <a href="index.html">Return to YJS</a>
         <a href="inner-chamber.html">Inner Chamber</a>
@@ -40,7 +46,7 @@ This file is only here to ensure the nav link works if you don’t.
       <div class="fine">This is the map. It exists because humans forget what they built.</div>
       <ul>
         <li><a class="btn" href="inner-chamber.html">Enter: Inner Chamber</a></li>
-        <li><a class="btn" href="inner-altar.html">Enter: Inner Altar</a></li>
+        <li><a class="btn" href="inner-altar.html" data-min-age="21">Enter: Inner Altar</a></li>
         <li><a class="btn" href="request-entry.html">Request Entry (Form)</a></li>
       </ul>
       <div class="fine">If you don’t see a room here yet, it’s still being forged.</div>
@@ -48,5 +54,7 @@ This file is only here to ensure the nav link works if you don’t.
   </div>
 
   <a href="owner.html" aria-label="Owner" style="position:fixed; left:6px; bottom:6px; width:10px; height:10px; opacity:0.01; z-index:9997;">.</a>
+
+  <script src="assets/age-gate.js"></script>
 </body>
 </html>
