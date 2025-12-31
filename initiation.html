@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Initiation · Your Jaded Secrets</title>
+
+  <style>
+    :root{
+      --bg:#070707;
+      --ink:#e4dcc3;
+      --muted:#c8bb9a;
+      --gold:#b89c59;
+      --line:#2a241a;
+      --radius:20px;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --crimson: rgba(168,24,58,.88);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background: var(--bg);
+      color:var(--ink);
+      font-family:"Playfair Display", serif;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:14px 18px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(7,7,7,.94), rgba(7,7,7,.76));
+      backdrop-filter: blur(10px);
+    }
+    .brand{
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:700;
+      font-size:14px;
+    }
+    nav{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      flex-wrap:wrap;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    nav a{
+      padding-bottom:2px;
+      border-bottom:1px solid transparent;
+    }
+    nav a:hover{ color:var(--ink); border-bottom-color:var(--gold); }
+
+    .pill{
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      border:1px solid var(--line);
+      color:var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .pill strong{ color:var(--ink); }
+
+    .hero{
+      min-height: calc(100vh - 62px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:26px 18px 34px;
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.86)),
+        url("images/oath-manifestation.png") center/cover no-repeat,
+        radial-gradient(1000px 700px at 50% 0%, rgba(184,156,89,.14), transparent 60%),
+        radial-gradient(900px 700px at 30% 120%, rgba(168,24,58,.18), transparent 60%),
+        var(--bg);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(680px 420px at 50% 40%, rgba(184,156,89,.18), transparent 66%),
+        radial-gradient(520px 380px at 68% 50%, rgba(168,24,58,.14), transparent 70%),
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.35));
+      pointer-events:none;
+      animation: ember 3.2s ease-in-out infinite;
+    }
+    @keyframes ember{
+      0%,100%{ opacity:.88; }
+      50%{ opacity:1; }
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      position:relative;
+      z-index:2;
+    }
+
+    .card{
+      border:1px solid rgba(184,156,89,.85);
+      border-radius:var(--radius);
+      background:rgba(0,0,0,.64);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      overflow:hidden;
+    }
+
+    .card-top{
+      padding:22px 20px 10px;
+      border-bottom:1px solid rgba(42,36,26,.9);
+      background:
+        radial-gradient(800px 240px at 20% 0%, rgba(168,24,58,.16), transparent 70%),
+        radial-gradient(700px 240px at 90% 0%, rgba(184,156,89,.14), transparent 70%);
+    }
+
+    .kicker{
+      margin:0 0 8px;
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.08;
+      letter-spacing:.02em;
+    }
+    .lead{
+      margin:0 0 12px;
+      color:var(--ink);
+      opacity:.92;
+      font-size:15px;
+    }
+
+    .oath{
+      padding:16px 20px 18px;
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+    }
+    @media (max-width: 900px){
+      h1{ font-size:38px; }
+      .oath{ grid-template-columns:1fr; }
+    }
+
+    .panel{
+      border:1px solid rgba(42,36,26,.9);
+      border-radius:18px;
+      background: rgba(255,255,255,.02);
+      padding:16px 16px 14px;
+    }
+    .panel h2{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .oath-text{
+      margin:0;
+      color:#e7ddc8;
+      font-size:15px;
+      line-height:1.75;
+    }
+    .oath-text strong{ color:var(--ink); }
+    .oath-text em{ color:#f1d7dd; font-style:italic; }
+
+    .sigil{
+      border:1px solid rgba(184,156,89,.55);
+      border-radius:18px;
+      padding:14px;
+      background: rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+      min-height: 240px;
+    }
+    .sigil::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(520px 360px at 40% 40%, rgba(184,156,89,.20), transparent 60%),
+        radial-gradient(520px 360px at 70% 60%, rgba(168,24,58,.18), transparent 65%);
+      filter: blur(10px);
+      animation: drift 9s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    @keyframes drift{
+      0%{ transform: translate3d(0,0,0) scale(1); opacity:.75; }
+      100%{ transform: translate3d(16px,-10px,0) scale(1.04); opacity:1; }
+    }
+    .sigil-inner{ position:relative; z-index:1; }
+    .sigil-title{
+      margin:0 0 8px;
+      font-size:13px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .sigil-lines{
+      margin:0;
+      font-size:14px;
+      color:var(--ink);
+      opacity:.92;
+      line-height:1.75;
+    }
+    .sigil-lines span{
+      display:block;
+      padding:8px 10px;
+      border:1px solid rgba(42,36,26,.85);
+      border-radius:14px;
+      margin-top:10px;
+      background: rgba(0,0,0,.28);
+    }
+
+    .actions{
+      padding:16px 20px 20px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      border-top:1px solid rgba(42,36,26,.9);
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--gold);
+      background:transparent;
+      color:var(--ink);
+      padding:12px 16px;
+      border-radius:12px;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .btn:hover{ background:var(--gold); color:#0b0b0b; }
+    .btn.secondary{
+      border-color:#6a5a35;
+      color:var(--muted);
+    }
+    .btn.secondary:hover{ background:#19140d; color:var(--ink); }
+    .btn.crimson{
+      border-color: rgba(168,24,58,.75);
+      box-shadow: 0 0 0 rgba(168,24,58,0);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    .btn.crimson:hover{ background: var(--crimson); color:#0b0b0b; }
+    @keyframes pulse{
+      0%,100%{ box-shadow: 0 0 0 rgba(168,24,58,0); }
+      50%{ box-shadow: 0 0 26px rgba(168,24,58,.24); }
+    }
+
+    .path{ position:relative; }
+    .path::after{
+      content:"";
+      position:absolute;
+      left:18px; right:18px; bottom:-10px;
+      height:2px;
+      background: linear-gradient(90deg, transparent, rgba(184,156,89,.75), rgba(168,24,58,.55), transparent);
+      opacity:.9;
+      animation: pathGlow 2.8s ease-in-out infinite;
+    }
+    @keyframes pathGlow{
+      0%,100%{ opacity:.55; transform: translateY(0); }
+      50%{ opacity:1; transform: translateY(-1px); }
+    }
+
+    .small{
+      font-size:12px;
+      color:#9b9078;
+      letter-spacing:.06em;
+    }
+
+    .gate{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      background:rgba(0,0,0,.88);
+      z-index:9999;
+    }
+    .gate.open{ display:flex; }
+    .gate-card{
+      width:min(720px, 96vw);
+      border:1px solid rgba(184,156,89,.85);
+      border-radius:20px;
+      background:rgba(10,10,10,.92);
+      box-shadow: var(--shadow);
+      padding:18px 18px 16px;
+    }
+    .gate-card h3{
+      margin:0 0 8px;
+      font-size:18px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+    .gate-card p{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .gate-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    .gate-actions .btn{ flex: 1 1 190px; justify-content:center; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">Your Jaded Secrets</div>
+    <nav aria-label="Primary">
+      <a href="index.html#threshold">Return to Threshold</a>
+      <a href="index.html#rooms">Rooms</a>
+      <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
+      <span class="pill" id="agePill">Age: <strong>Not set</strong></span>
+    </nav>
+  </header>
+
+  <main class="hero" aria-label="Initiation">
+    <div class="wrap">
+      <section class="card" aria-label="Oath of Manifestation">
+        <div class="card-top">
+          <p class="kicker">Initiation</p>
+          <h1>Oath of Manifestation</h1>
+          <p class="lead">Not a vibe. A decision. You take the oath, then you walk the path.</p>
+        </div>
+
+        <div class="oath">
+          <div class="panel">
+            <h2>Speak it</h2>
+            <p class="oath-text">
+              <strong>I accept and receive unexpected good.</strong><br/>
+              Unexpected money. Unexpected love.<br/>
+              Unexpected kindness, generosity, opportunity, and prosperity.<br/><br/>
+              I am guided, protected, and empowered to receive lavish abundance with ease.<br/>
+              <strong>Everything that aligns with my highest good flows freely.</strong><br/><br/>
+              Abundance is not coming to me.<br/>
+              It has already been given.<br/><br/>
+              I open my awareness to receive fully and to give freely.<br/>
+              Nothing is blocked. Nothing is withheld.<br/><br/>
+              <em>It is done.</em>
+            </p>
+          </div>
+
+          <div class="sigil">
+            <div class="sigil-inner">
+              <p class="sigil-title">Seal it</p>
+              <p class="sigil-lines">
+                Read it once, then read it like you mean it.<br/>
+                Then choose one action that proves you believed yourself.
+                <span>10 minutes. Candle or perfume. One decision made permanent.</span>
+                <span>Name the cost. Choose the standard. Stop negotiating.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <div>
+            <button class="btn secondary" type="button" id="setAge">Set / Change Age</button>
+            <div class="small">This page respects your age gate across YJS (stored per device).</div>
+          </div>
+
+          <div class="path">
+            <button class="btn crimson" type="button" id="continueBtn" title="Continue on the path">
+              Continue to Inner Altar →
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <div class="gate-card">
+      <h3 id="gateTitle">Age Verification Required</h3>
+      <p>YJS requires <strong>18+</strong> to enter. Certain doors require <strong>21+</strong>.</p>
+      <p>Set your age on this device to proceed.</p>
+      <div class="gate-actions">
+        <button class="btn" type="button" id="btn18">I’m 18+ (enter)</button>
+        <button class="btn crimson" type="button" id="btn21">I’m 21+ (unlock 21+ doors)</button>
+        <button class="btn secondary" type="button" id="btnLeave">Leave</button>
+      </div>
+      <p class="small" style="margin-top:10px;">Different device = different storage. Browsers are petty like that.</p>
+    </div>
+  </div>
+
+  <script>
+    const AGE_KEY = "yjs_age_level"; // shared with index
+    const gate = document.getElementById("gate");
+    const agePill = document.getElementById("agePill");
+
+    function getAgeLevel(){
+      const v = localStorage.getItem(AGE_KEY);
+      return (v === "18" || v === "21") ? v : null;
+    }
+    function setAgeLevel(v){
+      localStorage.setItem(AGE_KEY, v);
+      updatePill();
+      closeGate();
+    }
+    function updatePill(){
+      const v = getAgeLevel();
+      agePill.innerHTML = v ? `Age: <strong>${v}+</strong>` : 'Age: <strong>Not set</strong>';
+    }
+    function openGate(){ gate.classList.add("open"); }
+    function closeGate(){ gate.classList.remove("open"); }
+
+    document.getElementById("setAge").addEventListener("click", openGate);
+    document.getElementById("btn18").addEventListener("click", () => setAgeLevel("18"));
+    document.getElementById("btn21").addEventListener("click", () => setAgeLevel("21"));
+    document.getElementById("btnLeave").addEventListener("click", () => {
+      localStorage.removeItem(AGE_KEY);
+      window.location.href = "https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html";
+    });
+
+    document.getElementById("continueBtn").addEventListener("click", async () => {
+      const age = getAgeLevel();
+      if(!age){ openGate(); return; }
+
+      const url = "inner-altar.html";
+      try{
+        const res = await fetch(url, { method: "GET", cache: "no-store" });
+        if(!res.ok){
+          alert("inner-altar.html is missing in your repo. Upload/commit it, then try again.");
+          window.location.href = "index.html";
+          return;
+        }
+      }catch(e){}
+      window.location.href = url;
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeGate();
+    });
+
+    updatePill();
+    if(!getAgeLevel()) openGate();
+  </script>
+</body>
+</html>
