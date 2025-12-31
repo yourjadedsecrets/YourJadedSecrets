@@ -34,7 +34,6 @@
       line-height:1.6;
       overflow-x:hidden;
     }
-
     a{ color:inherit; text-decoration:none; }
 
     .wrap{
@@ -101,6 +100,8 @@
       border-radius:999px;
       user-select:none;
       white-space:nowrap;
+      background: transparent;
+      cursor:pointer;
     }
     .pill strong{ color:var(--ink); }
 
@@ -388,7 +389,6 @@
       text-transform:uppercase;
       text-align:center;
     }
-
     .fine{
       font-size:12px;
       color:#9b9078;
@@ -397,7 +397,7 @@
       margin-top:8px;
     }
 
-    /* Age Gate Modal */
+    /* DOB Gate Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -410,7 +410,7 @@
     }
     .modal.open{ display:flex; }
     .modal-card{
-      width:min(720px, 96vw);
+      width:min(740px, 96vw);
       border:1px solid rgba(184,156,89,.85);
       border-radius:20px;
       background:rgba(10,10,10,.92);
@@ -428,21 +428,45 @@
       color:var(--muted);
       font-size:14px;
     }
+
+    .field{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .field label{
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    input[type="date"]{
+      flex: 1 1 220px;
+      appearance:none;
+      border:1px solid rgba(184,156,89,.55);
+      background: rgba(0,0,0,.35);
+      color: var(--ink);
+      padding:12px 12px;
+      border-radius:14px;
+      font-family: inherit;
+      font-size:14px;
+      outline:none;
+    }
+    input[type="date"]:focus{
+      border-color: rgba(184,156,89,.95);
+      box-shadow: 0 0 0 3px rgba(184,156,89,.12);
+    }
+
     .modal-actions{
       display:flex;
       gap:12px;
       flex-wrap:wrap;
-      margin-top:12px;
+      margin-top:14px;
     }
-    .modal-actions .btn{
-      flex: 1 1 190px;
-      text-align:center;
-    }
-    .mini-note{
-      margin-top:10px;
-      font-size:12px;
-      color:#9b9078;
-    }
+    .modal-actions .btn{ flex: 1 1 190px; text-align:center; }
+
     .error-note{
       margin-top:10px;
       padding:10px 12px;
@@ -454,6 +478,60 @@
       letter-spacing:.04em;
       display:none;
       white-space:pre-wrap;
+    }
+
+    /* Cinematic Initiation transition */
+    .veil{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.0);
+      opacity:0;
+      pointer-events:none;
+      z-index:99999;
+      transition: opacity .55s ease, background .55s ease;
+    }
+    .veil.open{
+      opacity:1;
+      background: rgba(0,0,0,.55);
+      pointer-events:auto;
+    }
+    .veil-glow{
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(520px 320px at 50% 65%, rgba(184,156,89,.28), transparent 70%),
+        radial-gradient(720px 420px at 55% 60%, rgba(168,24,58,.18), transparent 75%);
+      filter: blur(10px);
+      opacity:.0;
+      transform: scale(1.02);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .veil.open .veil-glow{
+      opacity:1;
+      transform: scale(1.06);
+    }
+    .veil-fog{
+      position:absolute;
+      inset:-30%;
+      background:
+        radial-gradient(800px 520px at 35% 35%, rgba(255,255,255,.08), transparent 65%),
+        radial-gradient(700px 480px at 70% 55%, rgba(255,255,255,.06), transparent 65%),
+        radial-gradient(900px 640px at 45% 80%, rgba(168,24,58,.08), transparent 70%);
+      filter: blur(18px);
+      opacity:.0;
+      transform: translate3d(0,12px,0) scale(1.02);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .veil.open .veil-fog{
+      opacity:1;
+      transform: translate3d(0,0,0) scale(1.06);
+    }
+    body.going-forward{
+      animation: forwardStep .65s ease forwards;
+    }
+    @keyframes forwardStep{
+      0%{ transform: translateY(0) scale(1); filter:none; }
+      100%{ transform: translateY(-6px) scale(1.015); filter: brightness(.95); }
     }
   </style>
 </head>
@@ -470,7 +548,9 @@
         <a href="#threshold">Threshold</a>
         <a href="#rooms">Rooms</a>
         <a href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Midnight Garden</a>
-        <span class="pill" id="agePill" title="Your access level for age-gated doors.">Age: <strong>Not set</strong></span>
+        <button class="pill" id="verifyBtn" type="button" title="Verify age via birthday to unlock doors.">
+          Age: <strong id="agePillText">Not verified</strong>
+        </button>
       </nav>
     </header>
 
@@ -490,7 +570,6 @@
             <button class="btn secondary" type="button" data-go="inner-chamber.html">Enter the Inner Chamber</button>
             <button class="btn secondary" type="button" data-go="atelier.html">The Atelier</button>
             <button class="btn secondary" type="button" data-go="oracle-mirror.html">Oracle Mirror</button>
-            <button class="btn secondary" type="button" id="setAgeBtn">Set / Change Age</button>
           </div>
 
           <p class="fine">New doors appear without announcement.</p>
@@ -510,7 +589,7 @@
           <a class="btn secondary" href="https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html" target="_blank" rel="noopener noreferrer">Back to Midnight Garden</a>
         </div>
 
-        <p class="mini-note">Gate logic: 18+ to enter YJS. Some doors are 21+ for certain events/products.</p>
+        <p class="fine">18+ to enter. Some doors (events/products) require 21+.</p>
       </div>
 
       <div class="feature" aria-label="High Priestess">
@@ -520,56 +599,35 @@
 
     <section class="panel" id="rooms" style="margin-top:16px;" aria-label="Rooms">
       <h2>Rooms</h2>
-      <p>Tap a door. If it’s age-gated, we check your level and either open it or block it.</p>
+      <p>Tap a door. No birthday = no entry. (We love boundaries.)</p>
 
       <div class="rooms">
-        <button class="room" type="button" data-go="initiation.html" style="background-image:url('images/priestess-collage.png');">
-          <div class="meta">
-            <div class="title">Initiation</div>
-            <div class="badge">18+</div>
-          </div>
+        <button class="room" type="button" data-go="initiation.html" style="background-image:url('images/oath_manifestation.png');">
+          <div class="meta"><div class="title">Initiation</div><div class="badge">18+</div></div>
         </button>
 
         <button class="room" type="button" data-go="inner-altar.html" style="background-image:url('images/inner_altar.png');">
-          <div class="meta">
-            <div class="title">Inner Altar</div>
-            <div class="badge">18+</div>
-          </div>
+          <div class="meta"><div class="title">Inner Altar</div><div class="badge">18+</div></div>
         </button>
 
         <button class="room" type="button" data-go="inner-chamber.html" style="background-image:url('images/priestess-collage.png');">
-          <div class="meta">
-            <div class="title">Inner Chamber</div>
-            <div class="badge">18+</div>
-          </div>
+          <div class="meta"><div class="title">Inner Chamber</div><div class="badge">18+</div></div>
         </button>
 
         <button class="room" type="button" data-go="atelier.html" style="background-image:url('images/high-priestess.jpg');">
-          <div class="meta">
-            <div class="title">The Atelier</div>
-            <div class="badge">18+</div>
-          </div>
+          <div class="meta"><div class="title">The Atelier</div><div class="badge">18+</div></div>
         </button>
 
-        <button class="room" type="button" data-go="oracle-mirror.html" style="background-image:url('images/high-priestess.jpg');">
-          <div class="meta">
-            <div class="title">Oracle Mirror</div>
-            <div class="badge">18+</div>
-          </div>
+        <button class="room" type="button" data-go="oracle-mirror.html" style="background-image:url('images/oracle-mirror.webp');">
+          <div class="meta"><div class="title">Oracle Mirror</div><div class="badge">18+</div></div>
         </button>
 
         <button class="room" type="button" data-go="gatekeeper.html" style="background-image:url('images/priestess-collage.png');">
-          <div class="meta">
-            <div class="title">Gatekeeper</div>
-            <div class="badge red">21+</div>
-          </div>
+          <div class="meta"><div class="title">Gatekeeper</div><div class="badge red">21+</div></div>
         </button>
 
         <button class="room" type="button" data-go="vault.html" style="background-image:url('images/high-priestess.jpg');">
-          <div class="meta">
-            <div class="title">The Vault</div>
-            <div class="badge red">21+</div>
-          </div>
+          <div class="meta"><div class="title">The Vault</div><div class="badge red">21+</div></div>
         </button>
       </div>
     </section>
@@ -580,162 +638,200 @@
     </footer>
   </div>
 
-  <!-- Age Gate -->
-  <div class="modal" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="ageTitle">
+  <!-- DOB Gate -->
+  <div class="modal" id="dobGate" role="dialog" aria-modal="true" aria-labelledby="dobTitle">
     <div class="modal-card">
-      <h3 id="ageTitle">Age Gate</h3>
-      <p>
-        To enter YJS you must be <strong>18+</strong>.
-        Some doors (events/products) require <strong>21+</strong>.
-      </p>
-      <p>Pick the option that applies. We store it on this device only (localStorage).</p>
+      <h3 id="dobTitle">Birthday Verification</h3>
+      <p>Enter your birthday to unlock doors. No birthday, no entry. This is how we prevent “sneaking in.”</p>
+
+      <div class="field">
+        <label for="dobInput">Date of birth</label>
+        <input id="dobInput" type="date" autocomplete="bday" />
+      </div>
 
       <div class="modal-actions">
-        <button class="btn" id="btn18" type="button">I’m 18+ (enter)</button>
-        <button class="btn danger" id="btn21" type="button">I’m 21+ (unlock 21+ doors)</button>
-        <button class="btn secondary" id="btnNo" type="button">I’m under 18 (leave)</button>
+        <button class="btn" id="verifySubmit" type="button">Verify & Enter</button>
+        <button class="btn secondary" id="verifyClear" type="button">Clear Verification</button>
+        <button class="btn danger" id="verifyLeave" type="button">Leave</button>
       </div>
 
-      <div class="error-note" id="missingNote"></div>
-
-      <div class="mini-note">
-        Different device = different localStorage. If a door won’t open there, that device hasn’t been age-verified yet.
-      </div>
+      <div class="error-note" id="dobError"></div>
+      <div class="fine">We don’t store your birthday, only whether you’re 18+ or 21+ on this device.</div>
     </div>
   </div>
 
+  <!-- Cinematic veil for Initiation -->
+  <div class="veil" id="veil" aria-hidden="true">
+    <div class="veil-glow"></div>
+    <div class="veil-fog"></div>
+  </div>
+
   <script>
-    const AGE_KEY = "yjs_age_level";   // "18" or "21"
+    const KEY_18 = "yjs_verified_18"; // "1"
+    const KEY_21 = "yjs_verified_21"; // "1"
+    const KEY_TS = "yjs_verified_ts"; // timestamp
     const PENDING_KEY = "yjs_pending_door";
 
-    const gate = document.getElementById("ageGate");
-    const agePill = document.getElementById("agePill");
-    const setAgeBtn = document.getElementById("setAgeBtn");
-    const missingNote = document.getElementById("missingNote");
+    const dobGate = document.getElementById("dobGate");
+    const dobInput = document.getElementById("dobInput");
+    const dobError = document.getElementById("dobError");
+    const agePillText = document.getElementById("agePillText");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const veil = document.getElementById("veil");
 
-    function getAgeLevel(){
-      const v = localStorage.getItem(AGE_KEY);
-      return (v === "21" || v === "18") ? v : null;
-    }
-    function setAgeLevel(level){
-      localStorage.setItem(AGE_KEY, level);
-      updateAgePill();
-      closeGate();
-    }
-    function updateAgePill(){
-      const v = getAgeLevel();
-      agePill.innerHTML = v ? `Age: <strong>${v}+</strong>` : 'Age: <strong>Not set</strong>';
-    }
-    function openGate(msg){
-      if(msg){
-        missingNote.style.display = "block";
-        missingNote.textContent = msg;
-      }else{
-        missingNote.style.display = "none";
-        missingNote.textContent = "";
-      }
-      gate.classList.add("open");
-    }
-    function closeGate(){
-      gate.classList.remove("open");
-    }
-
-    // Doors: adjust these anytime you want.
     const DOORS_21 = new Set(["gatekeeper.html", "vault.html"]);
-    const DOORS_18 = new Set([
-      "initiation.html",
-      "inner-altar.html",
-      "inner-chamber.html",
-      "atelier.html",
-      "oracle-mirror.html"
-    ]);
 
-    function normalize(url){
-      return String(url || "").trim();
+    function openDobGate(msg){
+      if(msg){
+        dobError.style.display = "block";
+        dobError.textContent = msg;
+      }else{
+        dobError.style.display = "none";
+        dobError.textContent = "";
+      }
+      dobGate.classList.add("open");
+      setTimeout(() => dobInput?.focus(), 50);
     }
-    function is21Door(url){ return DOORS_21.has(normalize(url)); }
+    function closeDobGate(){ dobGate.classList.remove("open"); }
 
-    function canEnter(url){
-      const age = getAgeLevel();
-      if(!age) return false;
-      if(is21Door(url)) return age === "21";
-      return age === "18" || age === "21";
+    function isVerified18(){ return localStorage.getItem(KEY_18) === "1"; }
+    function isVerified21(){ return localStorage.getItem(KEY_21) === "1"; }
+
+    function updateAgePill(){
+      if(isVerified21()) agePillText.textContent = "21+";
+      else if(isVerified18()) agePillText.textContent = "18+";
+      else agePillText.textContent = "Not verified";
+    }
+
+    function setVerified(ageYears){
+      localStorage.setItem(KEY_18, ageYears >= 18 ? "1" : "0");
+      localStorage.setItem(KEY_21, ageYears >= 21 ? "1" : "0");
+      localStorage.setItem(KEY_TS, String(Date.now()));
+      updateAgePill();
+    }
+
+    function clearVerified(){
+      localStorage.removeItem(KEY_18);
+      localStorage.removeItem(KEY_21);
+      localStorage.removeItem(KEY_TS);
+      localStorage.removeItem(PENDING_KEY);
+      updateAgePill();
+    }
+
+    function computeAgeYears(dobStr){
+      const m = /^\d{4}-\d{2}-\d{2}$/.test(dobStr);
+      if(!m) return null;
+      const [y, mo, d] = dobStr.split("-").map(n => parseInt(n,10));
+      const dob = new Date(y, mo - 1, d);
+      if(Number.isNaN(dob.getTime())) return null;
+      const now = new Date();
+      let age = now.getFullYear() - dob.getFullYear();
+      const mDiff = now.getMonth() - dob.getMonth();
+      if(mDiff < 0 || (mDiff === 0 && now.getDate() < dob.getDate())) age--;
+      return age;
+    }
+
+    async function fileExists(url){
+      try{
+        const res = await fetch(url, { method:"GET", cache:"no-store" });
+        return res.ok;
+      }catch(e){
+        return true;
+      }
+    }
+
+    function cinematicGo(url){
+      document.body.classList.add("going-forward");
+      veil.classList.add("open");
+      veil.setAttribute("aria-hidden","false");
+      setTimeout(() => { window.location.href = url; }, 520);
     }
 
     async function goTo(url){
-      // Quick check: if the file doesn't exist, tell you WHAT it's trying to open.
-      // Helps you catch "initiation.html" missing / renamed.
-      try{
-        const res = await fetch(url, { method: "GET", cache: "no-store" });
-        if(!res.ok){
-          openGate(
-            `That door exists in the design but the file is missing:\n\n${url}\n\nFix: make sure the HTML file exists in the repo root with that exact name (case matters).`
-          );
-          return;
-        }
-      }catch(e){
-        // If fetch fails, still attempt navigation.
+      const ok = await fileExists(url);
+      if(!ok){
+        openDobGate(
+          `That door is in the design, but the file is missing:\n\n${url}\n\nFix: make sure the HTML file exists in your repo root with that exact name (case matters).`
+        );
+        return;
       }
-      window.location.href = url;
+      if(url === "initiation.html") cinematicGo(url);
+      else window.location.href = url;
     }
 
-    function attemptEnter(url){
-      url = normalize(url);
-      const age = getAgeLevel();
+    function doorRequires21(url){ return DOORS_21.has(url); }
 
-      if(!age){
+    async function attemptEnter(url){
+      url = String(url || "").trim();
+      if(!isVerified18()){
         localStorage.setItem(PENDING_KEY, url);
-        openGate();
+        openDobGate();
         return;
       }
-
-      if(!canEnter(url)){
+      if(doorRequires21(url) && !isVerified21()){
         localStorage.setItem(PENDING_KEY, url);
-        openGate("That door is 21+. Set your age to 21+ on this device to enter.");
+        openDobGate("That door is 21+. Enter your birthday to verify 21+ on this device.");
         return;
       }
-
-      goTo(url);
+      await goTo(url);
     }
 
     document.querySelectorAll("[data-go]").forEach(el => {
       el.addEventListener("click", () => attemptEnter(el.getAttribute("data-go")));
     });
 
-    setAgeBtn?.addEventListener("click", () => openGate());
+    verifyBtn?.addEventListener("click", () => openDobGate());
 
-    document.getElementById("btn18").addEventListener("click", () => {
-      setAgeLevel("18");
-      const pending = localStorage.getItem(PENDING_KEY);
-      if(pending && !is21Door(pending)){
-        localStorage.removeItem(PENDING_KEY);
-        goTo(pending);
+    document.getElementById("verifySubmit").addEventListener("click", async () => {
+      const val = (dobInput.value || "").trim();
+      const age = computeAgeYears(val);
+
+      if(age === null){
+        openDobGate("Enter a valid birthday.");
+        return;
       }
-    });
+      if(age < 0 || age > 120){
+        openDobGate("That birthday looks… fictional. Try again.");
+        return;
+      }
 
-    document.getElementById("btn21").addEventListener("click", () => {
-      setAgeLevel("21");
+      setVerified(age);
+
+      if(age < 18){
+        clearVerified();
+        window.location.href = "https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html";
+        return;
+      }
+
+      closeDobGate();
+
       const pending = localStorage.getItem(PENDING_KEY);
       if(pending){
         localStorage.removeItem(PENDING_KEY);
-        goTo(pending);
+        await attemptEnter(pending);
       }
     });
 
-    document.getElementById("btnNo").addEventListener("click", () => {
-      localStorage.removeItem(AGE_KEY);
-      localStorage.removeItem(PENDING_KEY);
+    document.getElementById("verifyClear").addEventListener("click", () => {
+      clearVerified();
+      openDobGate("Verification cleared. Enter birthday again to unlock.");
+    });
+
+    document.getElementById("verifyLeave").addEventListener("click", () => {
+      clearVerified();
       window.location.href = "https://cydniet.github.io/THE-MIDNIGHT-GARDEN-US/index.html";
     });
 
     document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeGate();
+      if(e.key === "Escape") closeDobGate();
     });
 
     updateAgePill();
 
-    // Enforce 18+ entry to YJS
-    if(!getAgeLevel()) openGate();
+    // Enforce verification at entry
+    if(!isVerified18()){
+      openDobGate();
+    }
   </script>
 </body>
 </html>
