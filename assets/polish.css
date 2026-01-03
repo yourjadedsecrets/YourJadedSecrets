@@ -100,3 +100,81 @@ body[data-page="vault-reward"] .panel{ opacity: .94; }
     margin-bottom: 14px;
   }
 }
+
+
+/* =========================================================
+   MATCHING LAYER: unify card imagery (Rooms / Index tiles)
+   Goal: make mixed-source art feel like one deck.
+   ========================================================= */
+
+.room{
+  /* keep text crisp, grade happens via overlays */
+  position: relative;
+  isolation: isolate; /* ensures blend layers don't bleed */
+}
+
+/* Subtle film grain + texture (very low) */
+.room::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(900px 360px at 25% 0%, rgba(255,220,140,.10), transparent 55%),
+    radial-gradient(700px 420px at 80% 100%, rgba(0,0,0,.72), transparent 58%),
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 1px,
+      rgba(0,0,0,0) 3px,
+      rgba(0,0,0,0) 6px
+    );
+  opacity: .22;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+/* Gold-black grade + vignette, makes b/w assets sit in palette */
+.room::after{
+  /* if your page already has ::after, this overrides it gently */
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(120deg,
+      rgba(184,156,89,.30) 0%,
+      rgba(0,0,0,.52) 55%,
+      rgba(0,0,0,.80) 100%
+    ),
+    radial-gradient(760px 240px at 35% 0%,
+      rgba(255,210,130,.16),
+      transparent 60%
+    ),
+    radial-gradient(620px 280px at 70% 105%,
+      rgba(0,0,0,.78),
+      transparent 60%
+    );
+  opacity: .70;
+  mix-blend-mode: multiply;
+  transition: opacity .18s ease;
+  z-index: 2;
+}
+
+/* Hover: tiny lift, not neon arcade */
+.room:hover::after{
+  opacity: .62;
+}
+
+/* Keep labels above the grade */
+.room .meta, .room .title, .room .tag, .room .badge{
+  position: relative;
+  z-index: 3;
+}
+
+/* Optional: make the Mirror tile feel less "silver sticker"
+   by giving it the same grade but slightly brighter center.
+   If your tile has a title containing 'ORACLE MIRROR', this helps visually. */
+.room[data-room*="mirror"]::after,
+.room[data-room="oracle-mirror"]::after{
+  opacity: .64;
+}
