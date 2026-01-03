@@ -1,0 +1,102 @@
+/* YJS POLISH LAYER
+   Purpose: consistent image hierarchy, spacing, responsive behavior, subtle transitions.
+   Keep it minimal. Keep it expensive.
+*/
+
+:root{
+  --yjs-img-radius: 18px;
+  --yjs-img-radius-sm: 14px;
+  --yjs-img-shadow: 0 22px 70px rgba(0,0,0,.52);
+  --yjs-img-shadow-soft: 0 14px 46px rgba(0,0,0,.42);
+  --yjs-max-hero: 820px;
+  --yjs-max-panel: 560px;
+  --yjs-max-env: 980px;
+  --yjs-gap-hero: 28px;
+  --yjs-gap-panel: 18px;
+}
+
+/* Global image safety */
+img{
+  height: auto;
+  max-width: 100%;
+}
+
+/* Core visual roles */
+.hero, .environment, .panel{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius: var(--yjs-img-radius);
+  box-shadow: var(--yjs-img-shadow-soft);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  overflow:hidden;
+}
+
+/* Hero: statement piece */
+.hero{
+  width: min(var(--yjs-max-hero), 100%);
+  margin-top: var(--yjs-gap-hero);
+  margin-bottom: var(--yjs-gap-hero);
+  box-shadow: var(--yjs-img-shadow);
+}
+
+/* Environment: mood framing */
+.environment{
+  width: min(var(--yjs-max-env), 100%);
+  margin-top: 22px;
+  margin-bottom: 22px;
+  opacity: .88;
+}
+
+/* Panel: supporting focus */
+.panel{
+  width: min(var(--yjs-max-panel), 100%);
+  margin-top: var(--yjs-gap-panel);
+  margin-bottom: var(--yjs-gap-panel);
+  opacity: .96;
+}
+
+/* Specific: locked “seal” look (if you use the class) */
+.lock-seal, .seal{
+  display:block;
+  width: 96px;
+  height:auto;
+  margin: 26px auto;
+  opacity: .96;
+  filter: drop-shadow(0 0 26px rgba(120,160,255,.22));
+}
+
+/* Subtle “arrive” animation for visuals */
+@keyframes yjsFadeUp{
+  from{ opacity:0; transform: translate3d(0,10px,0); }
+  to{ opacity:1; transform: translate3d(0,0,0); }
+}
+.hero, .environment, .panel{
+  animation: yjsFadeUp .28s ease-out both;
+}
+
+/* Per-room nuance (optional, driven by body[data-page]) */
+body[data-page="rooms"] .environment{ opacity: .90; }
+body[data-page="atelier"] .environment{ opacity: .92; }
+body[data-page="inner-chamber"] .environment{ opacity: .86; }
+body[data-page="vault-reward"] .panel{ opacity: .94; }
+
+/* Mobile hierarchy: less vertical churn */
+@media (max-width: 560px){
+  .hero, .environment, .panel{
+    border-radius: var(--yjs-img-radius-sm);
+  }
+  .hero{
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+  .environment{
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+  .panel{
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+}
