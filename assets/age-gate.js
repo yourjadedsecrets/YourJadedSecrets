@@ -1,7 +1,7 @@
 (() => {
-  const LS_KEY = "yjs_age_verified";
+  // You asked for this: NO device storage. Birthday required every single time.
+  let sessionAge = 0;
   let pendingNav = null; // { href, target, minAge }
- // "18" or "21"
   const DEFAULT_MIN = 18;
 
   function getMinAge(){
@@ -10,13 +10,26 @@
     return Number.isFinite(v) ? v : DEFAULT_MIN;
   }
 
-  function getAge(){
-    const v = parseInt(localStorage.getItem(LS_KEY) || "0", 10);
-    return Number.isFinite(v) ? v : 0;
-  }
+  function getAge(){ return sessionAge || 0; }
+  function setAge(v){ sessionAge = Number.isFinite(v) ? v : 0; }
 
-  function setAge(v){
-    localStorage.setItem(LS_KEY, String(v));
+  function calcAgeFromBirthdate(dateStr){
+    // dateStr expected as YYYY-MM-DD (from <input type="date">)
+    if (!dateStr || typeof dateStr !== "string") return 0;
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return 0;
+    const y = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10);
+    const d = parseInt(parts[2], 10);
+    if (![y,m,d].every(Number.isFinite)) return 0;
+
+    const today = new Date();
+    let age = today.getFullYear() - y;
+
+    const thisMonth = today.getMonth() + 1;
+    const thisDay = today.getDate();
+    if (thisMonth < m || (thisMonth === m && thisDay < d)) age -= 1;
+    return Math.max(0, age);
   }
 
   function ensureGateMarkup(){
@@ -34,19 +47,22 @@
         <div class="yjs-agegate__hero"></div>
         <div class="yjs-agegate__body">
           <p class="yjs-agegate__kicker">Private wing • Your Jaded Secrets</p>
-          <h2 class="yjs-agegate__title">Age check. No drama. Just compliance.</h2>
+          <h2 class="yjs-agegate__title">Enter your birthday.</h2>
           <p class="yjs-agegate__copy" id="yjs-agegate-copy">
             You must be <strong>18+</strong> to enter. Some doors (events/products) are <strong>21+</strong>.
           </p>
 
-          <div class="yjs-agegate__row">
-            <button class="yjs-agegate__btn" data-age="18" type="button">I’m 18+</button>
-            <button class="yjs-agegate__btn" data-age="21" type="button">I’m 21+</button>
+          <form class="yjs-agegate__row" id="yjs-agegate-form">
+            <label class="yjs-agegate__label">
+              <span class="sr-only">Birthday</span>
+              <input class="yjs-agegate__input" id="yjs-agegate-bday" type="date" required />
+            </label>
+            <button class="yjs-agegate__btn" type="submit">Enter</button>
             <a class="yjs-agegate__btn secondary" href="about:blank">Leave</a>
-          </div>
+          </form>
 
           <div class="yjs-agegate__fine">
-            This is a content gate, not legal advice and not a magical invisibility cloak. It just keeps the site from casually serving adults-only content to minors.
+            This is a content gate. Your birthday is <strong>not stored</strong>. You will be asked every visit. Because boundaries.
           </div>
         </div>
       </div>
@@ -54,42 +70,64 @@
 
     document.body.appendChild(gate);
 
-    gate.addEventListener("click", (e) => {
-      // close only when clicking outside the card (optional). We keep it sticky until verified.
-      if (e.target === gate) {
-        // no-op on purpose
+    // Keep it sticky: clicking outside does nothing on purpose
+    gate.addEventListener("click", (e) => { if (e.target === gate) {} });
+
+    const form = gate.querySelector("#yjs-agegate-form");
+    const input = gate.querySelector("#yjs-agegate-bday");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const age = calcAgeFromBirthdate(input.value);
+      const required = pendingNav?.minAge ?? getMinAge();
+
+      if (age <= 0){
+        showGate("Enter a valid birthday.");
+        return;
       }
-    });
 
-    gate.querySelectorAll("button[data-age]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const v = parseInt(btn.getAttribute("data-age") || "0", 10);
-        if (!Number.isFinite(v) || v < 18) return;
-        setAge(v);
-        hideGate();
-        // If they still don't meet the page min age, show again with the stricter message.
-        enforceMinAge();
+      if (age < 18){
+        showGate("This site is <strong>18+</strong>. Not a negotiation.");
+        return;
+      }
 
-        // If this verification was triggered by a gated link, continue now.
-        if (pendingNav && getAge() >= pendingNav.minAge && pendingNav.href){
-          const dest = pendingNav.href;
-          const tgt = pendingNav.target;
-          pendingNav = null;
-          if (tgt && tgt !== "_self"){
-            window.open(dest, tgt, "noopener,noreferrer");
-          } else {
-            window.location.href = dest;
-          }
+      // Verified for THIS PAGE LOAD only.
+      setAge(age);
+
+      if (age < required){
+        // Keep gate open with stricter message
+        if (required >= 21){
+          showGate(`This door is <strong>21+</strong>. Your current age doesn't clear it.`);
+        } else {
+          showGate(`You must be <strong>${required}+</strong> to enter this door.`);
         }
-      });
+        return;
+      }
+
+      hideGate();
+
+      // Continue gated navigation if needed
+      if (pendingNav && pendingNav.href){
+        const dest = pendingNav.href;
+        const tgt = pendingNav.target;
+        pendingNav = null;
+        if (tgt && tgt !== "_self"){
+          window.open(dest, tgt, "noopener,noreferrer");
+        } else {
+          window.location.href = dest;
+        }
+      }
     });
   }
 
   function showGate(message){
     ensureGateMarkup();
     const gate = document.getElementById("yjs-agegate");
-    const copy = document.getElementById("yjs-agegate-copy");
-    if (copy && message) copy.innerHTML = message;
+    if (!gate) return;
+
+    const copy = gate.querySelector("#yjs-agegate-copy");
+    if (copy && typeof message === "string") copy.innerHTML = message;
+
     gate.classList.add("open");
     document.documentElement.style.overflow = "hidden";
   }
@@ -106,10 +144,11 @@
     const age = getAge();
     if (age >= minAge) return true;
 
+    // Always ask for birthday on every page load
     if (minAge >= 21){
-      showGate(`This door is <strong>21+</strong>. Confirm you’re 21+ to enter.`);
+      showGate(`This door is <strong>21+</strong>. Enter your birthday to continue.`);
     } else {
-      showGate(`You must be <strong>18+</strong> to enter. Some doors are <strong>21+</strong>.`);
+      showGate(`Enter your birthday to confirm you’re <strong>18+</strong>. Some doors are <strong>21+</strong>.`);
     }
     return false;
   }
@@ -120,7 +159,6 @@
         const req = parseInt(el.getAttribute("data-min-age") || "0", 10);
         if (!Number.isFinite(req) || req <= 0) return;
 
-        // Determine where this click was trying to go (supports data-min-age on <a> or on a child inside <a>)
         const link = (el.tagName && el.tagName.toLowerCase() === "a") ? el : el.closest("a");
         const href = link ? link.getAttribute("href") : null;
         const target = link ? (link.getAttribute("target") || "") : "";
@@ -131,13 +169,14 @@
         e.preventDefault();
         e.stopPropagation();
 
-        if (href){
-          pendingNav = { href, target, minAge: req };
-        } else {
-          pendingNav = { href: null, target: "", minAge: req };
-        }
-
-        showGate(`That link is <strong>${req}+</strong>. Confirm your age to continue.`);
+        pendingNav = { href, target, minAge: req };
+        showGate(`That link is <strong>${req}+</strong>. Enter your birthday to continue.`);
       });
     });
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    interceptMinAgeLinks();
+    enforceMinAge();
+  });
+})();

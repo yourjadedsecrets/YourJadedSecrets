@@ -76,3 +76,33 @@
 
 /* Locked doors mark */
 .yjs-agegate__seal{width:96px;height:auto;display:block;margin:0 auto 14px;opacity:.95;filter:drop-shadow(0 0 22px rgba(120,160,255,.22));}
+
+
+/* Inputs */
+.yjs-agegate__label{flex:1; min-width: 220px;}
+.yjs-agegate__input{
+  width:100%;
+  border:1px solid rgba(184,156,89,.55);
+  background: rgba(0,0,0,.28);
+  color:#e4dcc3;
+  padding:10px 12px;
+  border-radius:14px;
+  font-family: inherit;
+  font-size:14px;
+}
+.yjs-agegate__input:focus{
+  outline:none;
+  border-color: rgba(184,156,89,.85);
+  box-shadow: 0 0 0 3px rgba(184,156,89,.15);
+}
+
+/* Screen-reader-only helper */
+.sr-only{
+  position:absolute;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
