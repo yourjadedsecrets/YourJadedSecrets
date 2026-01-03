@@ -96,6 +96,17 @@
       pointer-events:none;
     }
     .hero-inner{
+    .hero-art{
+      width:min(520px,100%);
+      height:auto;
+      display:block;
+      border-radius:16px;
+      box-shadow:0 20px 60px rgba(0,0,0,.45);
+      margin: 0 0 18px 0;
+    }
+    @media (max-width: 820px){
+      .hero-art{ margin: 0 auto 18px auto; }
+    }
       position:relative;
       z-index:1;
       padding:22px;
@@ -262,8 +273,9 @@
       text-align:center;
     }
   </style>
+<link rel="stylesheet" href="assets/polish.css">
 </head>
-<body>
+<body data-page="oracle-mirror">
   <div class="wrap">
     <header>
       
@@ -283,6 +295,7 @@
     <section class="hero">
       <div class="hero-inner">
         <div>
+          <img class="hero-art" src="images/oracle-mirror.webp" alt="Oracle Mirror artwork">
           <p class="kicker">Not advice · alignment</p>
           <h1>Oracle Mirror</h1>
           <p class="lead">
