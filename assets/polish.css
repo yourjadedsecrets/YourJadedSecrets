@@ -178,3 +178,91 @@ body[data-page="vault-reward"] .panel{ opacity: .94; }
 .room[data-room="oracle-mirror"]::after{
   opacity: .64;
 }
+
+
+/* Mirror + Shadow pairing */
+.mirror-pair{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items:center;
+  justify-content:center;
+  max-width: 1100px;
+  margin: 32px auto;
+}
+
+.mirror-pair .hero{
+  margin:0;
+}
+
+.mirror-pair .panel.shadow{
+  opacity:.88;
+}
+
+@media (max-width: 780px){
+  .mirror-pair{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Gatekeeper hero title overlay */
+.gatekeeper-hero{
+  position: relative;
+  max-width: var(--yjs-max-hero);
+  margin: 32px auto;
+}
+
+.gatekeeper-hero img{
+  width:100%;
+  display:block;
+}
+
+.gatekeeper-title{
+  position:absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: serif;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: .18em;
+  color: rgba(255,215,160,.95);
+  text-shadow:
+    0 2px 8px rgba(0,0,0,.65),
+    0 0 28px rgba(160,120,40,.45);
+  pointer-events:none;
+}
+
+
+/* Rooms hero: Yellow Broken Path */
+.rooms-hero{
+  position: relative;
+  max-width: 1100px;
+  margin: 26px auto 18px;
+  border-radius: var(--yjs-img-radius);
+  overflow:hidden;
+  box-shadow: var(--yjs-img-shadow);
+}
+
+.rooms-path{
+  display:block;
+  width:100%;
+  height: clamp(220px, 32vw, 360px);
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.04);
+  opacity: .96;
+}
+
+.rooms-hero__title{
+  position:absolute;
+  left: 6%;
+  bottom: 10%;
+  font-family: serif;
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: .18em;
+  color: rgba(255,215,160,.94);
+  text-shadow:
+    0 2px 10px rgba(0,0,0,.7),
+    0 0 26px rgba(160,120,40,.35);
+  pointer-events:none;
+}
