@@ -220,14 +220,7 @@
   </div>
 
   <script>
-    // Reuse the same age key as index.html
-    const AGE_KEY = "yjs_age_level"; // "18" or "21"
     const OATH_KEY = "yjs_oath_sealed"; // "1"
-
-    function getAgeLevel(){
-      const v = localStorage.getItem(AGE_KEY);
-      return (v === "21" || v === "18") ? v : null;
-    }
 
     function toast(msg){
       const t = document.getElementById("toast");
@@ -238,10 +231,6 @@
     }
 
     // If they haven't verified age on this device, bounce them back to index to verify
-    if(!getAgeLevel()){
-      toast("Age not set on this device. Go back to Home and verify to enter.");
-      setTimeout(() => { window.location.href = "index.html#threshold"; }, 900);
-    }
 
     const check = document.getElementById("oathCheck");
     const sealBtn = document.getElementById("sealBtn");
