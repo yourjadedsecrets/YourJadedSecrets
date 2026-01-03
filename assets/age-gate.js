@@ -30,6 +30,7 @@
 
     gate.innerHTML = `
       <div class="yjs-agegate__card">
+        <img class="yjs-agegate__seal" src="images/seal-of-brine.png" alt="Seal of Brine" />
         <div class="yjs-agegate__hero"></div>
         <div class="yjs-agegate__body">
           <p class="yjs-agegate__kicker">Private wing • Your Jaded Secrets</p>

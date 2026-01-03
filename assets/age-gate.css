@@ -72,3 +72,7 @@
   color:rgba(228,220,195,.62);
   letter-spacing:.04em;
 }
+
+
+/* Locked doors mark */
+.yjs-agegate__seal{width:96px;height:auto;display:block;margin:0 auto 14px;opacity:.95;filter:drop-shadow(0 0 22px rgba(120,160,255,.22));}
