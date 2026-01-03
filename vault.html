@@ -217,7 +217,10 @@
       align-items:flex-start;
     }
     .opts input{ width:16px; height:16px; margin-top:3px; }
-  </style>
+  
+    .lock-seal{width:96px;height:auto;display:block;margin:14px auto 10px;opacity:.95;filter:drop-shadow(0 0 22px rgba(120,160,255,.22));}
+    .lock-seal.hidden{display:none;}
+</style>
 </head>
 <body>
   <div class="wrap">
@@ -237,6 +240,7 @@
         <div class="rule">
           <strong>Phrase</strong>
           <p>Enter what you were given. If you weren’t given anything, you’re early.</p>
+          <img id="lockSeal" class="lock-seal" src="images/seal-of-brine.png" alt="Seal of Brine" />
           <label for="phrase">Invitation phrase</label>
           <input id="phrase" type="password" private draft="Enter phrase" autocomplete="off" />
           <div class="consent">
@@ -397,6 +401,9 @@
     }
 
     function startTrial(){
+      const lockSeal = document.getElementById("lockSeal");
+      if(lockSeal) lockSeal.classList.add("hidden");
+
       trial.style.display = "block";
       showStatus(status, "Phrase accepted. Proceed to the Trial.");
       // small scroll for mobile
